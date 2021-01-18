@@ -1,28 +1,43 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <AppBar/>
+    <div class="container">
+      <div class="mt-3">
+        <NewGame
+            @start-game="startGame($event)"/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppBar from './components/AppBar'
+import NewGame from './components/NewGame'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NewGame,
+    AppBar
+  },
+  methods: {
+    startGame (e) {
+      console.log(e)
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  @import "~bootstrap";
+
+  h1 {
+    font-weight: bold;
+  }
+
+  body {
+    font-family: 'Raleway', Helvetica, sans-serif;
+    margin: 0;
+    background-color: #fafafa;
+  }
 </style>
