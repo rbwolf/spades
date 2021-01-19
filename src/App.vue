@@ -13,6 +13,7 @@
 <script>
 import AppBar from './components/AppBar'
 import NewGame from './components/NewGame'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -20,9 +21,18 @@ export default {
     NewGame,
     AppBar
   },
+  computed: {
+    ...mapState([
+      'players',
+      'rounds',
+      'pointsToWin'
+    ])
+  },
   methods: {
-    startGame (e) {
-      console.log(e)
+    startGame () {
+      console.log(this.players)
+      console.log(this.rounds)
+      console.log(this.pointsToWin)
     }
   }
 }

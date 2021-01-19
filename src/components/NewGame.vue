@@ -36,7 +36,7 @@
     <div class="row">
       <Button
           class="mt-4"
-          @click="$emit('start-game', ({ player1, player2, player3, player4, score }))">
+          @click="initGame">
         Let's play!
       </Button>
     </div>
@@ -46,6 +46,7 @@
 <script>
   import TextInput from './TextInput'
   import Button from './Button'
+  import { mapMutations } from 'vuex'
   export default {
     name: 'NewGame',
     components: { Button, TextInput},
@@ -59,8 +60,14 @@
       }
     },
     methods: {
-      print () {
-        console.log(this.player1)
+      ...mapMutations([
+        'setPlayers',
+        'setPointsToWin',
+      ]),
+      initGame () {
+        this.setPlayers([this.player1, this.player2, this.player3, this.player4])
+        this.setPointsToWin(this.score)
+        this.$emit('start-game')
       }
     }
   }
