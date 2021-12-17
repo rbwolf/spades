@@ -8,8 +8,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     pointsToWin: 500,
-    players: [],
-    rounds: [],
+    players: [], // ['Kyle', 'Shannon', ..., 'Ryan']
+    rounds: [], // [[{ bid: 3, tricks: 4 }, ...]]
   },
   mutations: {
     setPlayers (state, players) {
@@ -23,7 +23,6 @@ const store = new Vuex.Store({
 
   },
   getters: {
-
   }
 })
 

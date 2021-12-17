@@ -34,9 +34,9 @@
   .text-input {
     border-radius: 8px;
     outline: none;
-    border: none;
     padding: 12px;
-    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid lightgrey;
+    /*box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);*/
     box-sizing: border-box;
     width: 100%;
   }

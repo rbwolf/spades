@@ -4,7 +4,9 @@
     <div class="container">
       <div class="mt-3">
         <NewGame
+            v-if="showNewGame"
             @start-game="startGame($event)"/>
+        <Main v-else/>
       </div>
     </div>
   </div>
@@ -14,12 +16,19 @@
 import AppBar from './components/AppBar'
 import NewGame from './components/NewGame'
 import { mapState } from 'vuex'
+import Main from './components/Main'
 
 export default {
   name: 'App',
   components: {
     NewGame,
+    Main,
     AppBar
+  },
+  data () {
+    return {
+      showNewGame: true,
+    }
   },
   computed: {
     ...mapState([
@@ -30,9 +39,7 @@ export default {
   },
   methods: {
     startGame () {
-      console.log(this.players)
-      console.log(this.rounds)
-      console.log(this.pointsToWin)
+      this.showNewGame = false
     }
   }
 }

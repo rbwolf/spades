@@ -10,19 +10,19 @@
         <h2>Team 1</h2>
         <text-input
             class="mb-2"
-            v-model="player1"/>
+            v-model="playerNames[0]"/>
         <text-input
             class="mb-2"
-            v-model="player2"/>
+            v-model="playerNames[1]"/>
       </div>
       <div class="col col-6">
         <h2>Team 2</h2>
         <text-input
             class="mb-2"
-            v-model="player3"/>
+            v-model="playerNames[2]"/>
         <text-input
             class="mb-2"
-            v-model="player4"/>
+            v-model="playerNames[3]"/>
       </div>
     </div>
     <div class="row">
@@ -52,10 +52,7 @@
     components: { Button, TextInput},
     data () {
       return {
-        player1: '',
-        player2: '',
-        player3: '',
-        player4: '',
+        playerNames: [],
         score: '500'
       }
     },
