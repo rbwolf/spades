@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col">
         <p class="player-name">
-          {{ players[0] }}
+          Blah
         </p>
       </div>
     </div>

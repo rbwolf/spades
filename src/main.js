@@ -1,32 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 import App from './App.vue'
+import store from './store'
+import routes from './routes'
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
+Vue.use(VueRouter)
 
-const store = new Vuex.Store({
-  state: {
-    pointsToWin: 500,
-    players: [], // ['Kyle', 'Shannon', ..., 'Ryan']
-    rounds: [], // [[{ bid: 3, tricks: 4 }, ...]]
-  },
-  mutations: {
-    setPlayers (state, players) {
-      state.players = players
-    },
-    setPointsToWin (state, score) {
-      state.pointsToWin = parseInt(score)
-    }
-  },
-  actions: {
-
-  },
-  getters: {
-  }
+const router = new VueRouter({
+  mode: 'history',
+  routes: routes
 })
+
+const appStore = new Vuex.Store(store)
 
 new Vue({
   render: h => h(App),
-  store: store,
+  store: appStore,
+  router,
 }).$mount('#app')

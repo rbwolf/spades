@@ -64,7 +64,7 @@
       initGame () {
         this.setPlayers([this.player1, this.player2, this.player3, this.player4])
         this.setPointsToWin(this.score)
-        this.$emit('start-game')
+        this.$router.push('play')
       }
     }
   }

@@ -48,7 +48,7 @@
 
   .new-game {
     &:active {
-      opacity: 20%;
+      opacity: 70%;
     }
   }
 </style>

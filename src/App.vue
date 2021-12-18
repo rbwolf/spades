@@ -3,46 +3,25 @@
     <AppBar/>
     <div class="container">
       <div class="mt-3">
-        <NewGame
-            v-if="showNewGame"
-            @start-game="startGame($event)"/>
-        <Main v-else/>
+        <transition
+          name="fade"
+          mode="out-in">
+          <router-view :key="$route.name"/>
+        </transition>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import AppBar from './components/AppBar'
-import NewGame from './components/NewGame'
-import { mapState } from 'vuex'
-import Main from './components/Main'
+  import AppBar from './components/AppBar'
 
-export default {
-  name: 'App',
-  components: {
-    NewGame,
-    Main,
-    AppBar
-  },
-  data () {
-    return {
-      showNewGame: true,
-    }
-  },
-  computed: {
-    ...mapState([
-      'players',
-      'rounds',
-      'pointsToWin'
-    ])
-  },
-  methods: {
-    startGame () {
-      this.showNewGame = false
+  export default {
+    name: 'App',
+    components: {
+      AppBar
     }
   }
-}
 </script>
 
 <style lang="scss">
@@ -56,5 +35,13 @@ export default {
     font-family: 'Raleway', Helvetica, sans-serif;
     margin: 0;
     background-color: #fafafa;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 100ms;
+  }
+
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
 </style>
