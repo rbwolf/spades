@@ -27,24 +27,24 @@
       </div>
     </div>
     <div class="row">
-      <Button
+      <action-button
           class="mt-4"
           @click="initGame">
         Let's play!
-      </Button>
+      </action-button>
     </div>
   </div>
 </template>
 
 <script>
   import TextInput from './TextInput'
-  import Button from './Button'
+  import ActionButton from './ActionButton'
   import { Player, Team } from '../models'
   import { mapMutations } from 'vuex'
 
   export default {
     name: 'NewGame',
-    components: { Button, TextInput },
+    components: { ActionButton, TextInput },
     data () {
       return {
         teams: [['', ''], ['', '']],

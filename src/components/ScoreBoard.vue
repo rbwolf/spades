@@ -1,33 +1,32 @@
 <template>
-  <div class="row mb-4">
+  <div class="row">
     <div
-      v-for="team in teams"
+      v-for="(team, i) in teams"
       :key="team.id"
       class="col text-center">
-      <h1>{{ getTeamScore(team.id) }}</h1>
+      <h1>{{ scores[i] }}</h1>
       <h3>{{ team.name }}</h3>
-      <h6>{{ getTeamBags(team.id) }} bag{{ getTeamBags(team.id) !== 1 ? 's' : '' }}</h6>
+      <h6>{{ bags[i] }} bag{{ bags[i] !== 1 ? 's' : '' }}</h6>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapState } from 'vuex'
-
   export default {
     name: 'ScoreBoard',
-    computed: {
-      ...mapState([
-        'teams'
-      ]),
-      ...mapGetters([
-        'getTeamScore',
-        'getTeamBags'
-      ])
+    props: {
+      teams: {
+        type: Array,
+        required: true
+      },
+      scores: {
+        type: Array,
+        required: true
+      },
+      bags: {
+        type: Array,
+        required: true
+      }
     }
   }
 </script>
-
-<style scoped>
-
-</style>

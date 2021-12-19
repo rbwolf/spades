@@ -40,6 +40,8 @@
   .title {
     font-weight: bold;
     margin-bottom: 0;
+    cursor: default;
+    user-select: none;
   }
 
   .spade {
