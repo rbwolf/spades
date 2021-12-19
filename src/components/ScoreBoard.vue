@@ -1,12 +1,12 @@
 <template>
   <div class="row mb-4">
     <div
-      v-for="(team, id) in teams"
-      :key="'team-' + id"
+      v-for="team in teams"
+      :key="team.id"
       class="col text-center">
-      <h1>{{ getTeamScore(Number(id)) }}</h1>
+      <h1>{{ getTeamScore(team.id) }}</h1>
       <h3>{{ team.name }}</h3>
-      <h6>{{ team.bags }} bag{{ team.bags !== 1 ? 's' : '' }}</h6>
+      <h6>{{ getTeamBags(team.id) }} bag{{ getTeamBags(team.id) !== 1 ? 's' : '' }}</h6>
     </div>
   </div>
 </template>
@@ -21,7 +21,8 @@
         'teams'
       ]),
       ...mapGetters([
-        'getTeamScore'
+        'getTeamScore',
+        'getTeamBags'
       ])
     }
   }

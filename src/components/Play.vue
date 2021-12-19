@@ -10,9 +10,19 @@
 <script>
   import Round from './Round'
   import ScoreBoard from './ScoreBoard'
+  import { mapMutations } from 'vuex'
+
   export default {
     name: 'Game',
-    components: {ScoreBoard, Round}
+    components: {ScoreBoard, Round},
+    mounted () {
+      this.addNewRound()
+    },
+    methods: {
+      ...mapMutations([
+        'addNewRound'
+      ])
+    }
   }
 </script>
 

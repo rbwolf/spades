@@ -1,71 +1,91 @@
+import { PlayerRound, Round } from './models'
+
 export default {
   state: {
     teams: [
-      { id: 0, name: 'Team 1', bags: 0 },
-      { id: 1, name: 'Team 2', bags: 0 }
+      // Team
+      {id: 0, name: 'Team 1'},
+      {id: 1, name: 'Team 2'}
     ],
     players: [
-      { id: 0, teamId: 0, name: 'Ryan' },
-      { id: 1, teamId: 0, name: 'Sophie' },
-      { id: 2, teamId: 1, name: 'Shannon' },
-      { id: 3, teamId: 1, name: 'Kyle' }
+      // Player
+      {id: 0, teamId: 0, name: 'Ryan'},
+      {id: 1, teamId: 0, name: 'Sophie'},
+      {id: 2, teamId: 1, name: 'Shannon'},
+      {id: 3, teamId: 1, name: 'Kyle'}
     ],
-    rounds: [
-      {
-        bids: [
-          {playerId: 0, bid: 4, blind: false},
-          {playerId: 1, bid: 2, blind: false},
-          {playerId: 2, bid: 1, blind: false},
-          {playerId: 3, bid: 0, blind: true},
-        ],
-        tricks: [
-          {playerId: 0, tricks: 3},
-          {playerId: 1, tricks: 4},
-          {playerId: 2, tricks: 1},
-          {playerId: 3, tricks: 0},
-        ]
-      }
-    ],
+    rounds: [],
+    playerRounds: [],
     pointsToWin: 500,
     matchedBidScore: 10,
     surplusBidScore: 1,
     bagLimit: 10,
-    bagPenalty: 100,
+    bustPenalty: 100,
     blindBonus: 100,
     nilBonus: 100,
     blindNilBonus: 200
   },
   mutations: {
-    setPlayers (state, players) {
-      state.players = players
+    addTeam (state, team) {
+      state.teams = [...state.teams, team]
+    },
+    addPlayer (state, player) {
+      state.players = [...state.players, player]
     },
     setPointsToWin (state, score) {
       state.pointsToWin = parseInt(score)
+    },
+    addNewRound (state) {
+      const newRound = new Round()
+      state.rounds = [...state.rounds, newRound]
+      const playerRounds = state.players.map(player => new PlayerRound(player.id, newRound.id))
+      state.playerRounds = [...state.playerRounds, ...playerRounds]
     }
   },
-  actions: {
-
-  },
+  actions: {},
   getters: {
-    getPlayerScore: state => playerId => {
-      return state.rounds.reduce((acc, round) => {
-        const bid = round.bids.find(bid => bid.playerId === playerId).bid
-        const tricks = round.tricks.find(trick => trick.playerId === playerId).tricks
-
-        if (bid < tricks) {
-          return acc - (tricks * state.matchedBidScore)
-        } else if (bid > tricks) {
-          return acc + (bid * state.matchedBidScore) + (tricks - bid) * state.surplusBidScore
+    getPlayerScore: (state, getters) => playerId => {
+      return getters.getPlayerRounds(playerId).reduce((score, playerRound) => {
+        const {bid, tricks} = playerRound
+        if (tricks < bid) {
+          return score - (bid * state.matchedBidScore)
+        } else if (tricks > bid) {
+          return score + (bid * state.matchedBidScore) + (tricks - bid) * state.surplusBidScore
         } else {
-          return acc + (tricks * state.matchedBidScore)
+          return score + (tricks * state.matchedBidScore)
         }
       }, 0)
     },
-    getTeamScore: (state, getters) => teamId => {
-      const playerIds = Object.values(state.players)
+    getPlayerRounds: state => playerId => {
+      return state.playerRounds.filter(playerRound => playerRound.playerId === playerId)
+    },
+    getPlayerBags: (state, getters) => playerId => {
+      return getters.getPlayerRounds(playerId).reduce((bags, playerRound) => {
+        const { bid, tricks } = playerRound
+        if (tricks > bid) {
+          return bags + (tricks - bid)
+        }
+        return bags
+      }, 0)
+    },
+    getTeamPlayerIds: (state) => teamId => {
+      return Object.values(state.players)
         .filter(player => player.teamId === teamId)
         .map(player => player.id)
-      return playerIds.map(id => getters.getPlayerScore(id)).reduce((sum, curr) => sum + curr)
+    },
+    getTeamScore: (state, getters) => teamId => {
+      const playerIds = getters.getTeamPlayerIds(teamId)
+      const totalScore = playerIds.map(getters.getPlayerScore).reduce((sum, curr) => sum + curr)
+      const bags = getters.getTotalTeamBags(teamId)
+      const bagPenalties = Math.floor(bags / state.bagLimit)
+      return totalScore - (bagPenalties * state.bustPenalty)
+    },
+    getTotalTeamBags: (state, getters) => teamId => {
+      const playerIds = getters.getTeamPlayerIds(teamId)
+      return playerIds.map(getters.getPlayerBags).reduce((sum, curr) => sum + curr)
+    },
+    getTeamBags: (state, getters) => teamId => {
+      return getters.getTotalTeamBags(teamId) % state.bagLimit
     }
   }
 }

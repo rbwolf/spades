@@ -6,23 +6,16 @@
       </div>
     </div>
     <div class="row">
-      <div class="col col-6">
-        <h2>Team 1</h2>
+      <div
+        v-for="(team, i) in teams"
+        :key="i"
+        class="col col-6">
+        <h2>Team {{ i }}</h2>
         <text-input
-            class="mb-2"
-            v-model="playerNames[0]"/>
-        <text-input
-            class="mb-2"
-            v-model="playerNames[1]"/>
-      </div>
-      <div class="col col-6">
-        <h2>Team 2</h2>
-        <text-input
-            class="mb-2"
-            v-model="playerNames[2]"/>
-        <text-input
-            class="mb-2"
-            v-model="playerNames[3]"/>
+          v-for="(_, j) in team"
+          :key="j"
+          class="mb-2"
+          v-model="teams[i][j]"/>
       </div>
     </div>
     <div class="row">
@@ -46,23 +39,33 @@
 <script>
   import TextInput from './TextInput'
   import Button from './Button'
+  import { Player, Team } from '../models'
   import { mapMutations } from 'vuex'
+
   export default {
     name: 'NewGame',
-    components: { Button, TextInput},
+    components: { Button, TextInput },
     data () {
       return {
-        playerNames: [],
+        teams: [['', ''], ['', '']],
         score: '500'
       }
     },
     methods: {
       ...mapMutations([
-        'setPlayers',
-        'setPointsToWin',
+        'addPlayer',
+        'addTeam',
+        'setPointsToWin'
       ]),
       initGame () {
-        this.setPlayers([this.player1, this.player2, this.player3, this.player4])
+        for (const i in this.teams) {
+          const team = new Team('Team ' + (i + 1))
+          this.addTeam(team)
+          for (const name of this.teams[i]) {
+            const player = new Player(name, team.id)
+            this.addPlayer(player)
+          }
+        }
         this.setPointsToWin(this.score)
         this.$router.push('play')
       }
