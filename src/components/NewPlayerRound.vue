@@ -5,18 +5,18 @@
         <p class="player-name">
           {{ player.name }}
         </p>
-        <blind-toggle
-          :blind="blind"
-          :disabled="!allowBidding"
-          @toggle="$emit('toggle-blind')"
-          class="mx-2"/>
       </div>
     </div>
-    <div class="row align-items-center mt-3">
-      <div class="col col-12 col-md-4">
+    <div class="row align-items-center mt-2">
+      <div class="col col-12 col-md-4 d-flex">
         <label>
           Bid
         </label>
+        <blind-toggle
+            :blind="blind"
+            :disabled="!allowBidding"
+            @toggle="$emit('toggle-blind')"
+            class="px-2 mb-2 mb-md-0"/>
       </div>
       <div class="col col-12 col-md-8 px-2">
         <TextInput

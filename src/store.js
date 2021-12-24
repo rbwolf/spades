@@ -28,10 +28,10 @@ export default {
   },
   mutations: {
     addTeam (state, team) {
-      state.teams = [...state.teams, team]
+      state.teams = {...state.teams, [team.id]: team}
     },
     addPlayer (state, player) {
-      state.players = [...state.players, player]
+      state.players = {...state.players, [player.id]: player}
     },
     setPointsToWin (state, score) {
       state.pointsToWin = parseInt(score)
@@ -39,6 +39,12 @@ export default {
     updatePlayerRound (state, data) {
       state.playerRounds[data.id] = { ...state.playerRounds[data.id], ...data}
     },
+    clearAllData (state) {
+      state.rounds = []
+      state.playersRounds = {}
+      state.players = {}
+      state.teams = {}
+    }
   },
   actions: {
     startNewRound ({ state }) {

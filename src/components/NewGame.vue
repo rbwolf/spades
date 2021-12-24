@@ -10,7 +10,7 @@
         v-for="(team, i) in teams"
         :key="i"
         class="col col-6">
-        <h2>Team {{ i }}</h2>
+        <h2>Team {{ names[i] }}</h2>
         <text-input
           v-for="(_, j) in team"
           :key="j"
@@ -48,8 +48,13 @@
     data () {
       return {
         teams: [['', ''], ['', '']],
+        names: [],
         score: '500'
       }
+    },
+    mounted () {
+      // TODO: Put something fun here
+      this.names = ['1', '2']
     },
     methods: {
       ...mapMutations([
@@ -59,7 +64,7 @@
       ]),
       initGame () {
         for (const i in this.teams) {
-          const team = new Team('Team ' + (i + 1))
+          const team = new Team('Team ' + this.names[i])
           this.addTeam(team)
           for (const name of this.teams[i]) {
             const player = new Player(name, team.id)

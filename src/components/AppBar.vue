@@ -14,7 +14,7 @@
         </div>
         <div
           class="col d-flex align-items-center justify-content-end new-game"
-          @click="$router.push('new')">
+          @click="onClickNew">
           <circle-plus/>
         </div>
       </div>
@@ -25,10 +25,22 @@
 <script>
   import Spade from './svg/Spade'
   import CirclePlus from './svg/CirclePlus'
+  import { mapMutations } from 'vuex'
 
   export default {
     name: 'App',
     components: {CirclePlus, Spade},
+    methods: {
+      ...mapMutations([
+        'clearAllData'
+      ]),
+      onClickNew () {
+        if (confirm('Are you sure you want to start a new game?')) {
+          this.clearAllData()
+          this.$router.push('new')
+        }
+      }
+    }
   }
 </script>
 
