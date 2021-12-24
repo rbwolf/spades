@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col player-name">
+    <div class="row my-2 my-md-0">
+      <div class="col col-12 col-md-6 player-name text-center text-md-start fw-bold">
         {{ playerName }}
       </div>
-      <div class="col">
-        <div class="d-flex align-items-center">
+      <div class="col col-12 col-md-6">
+        <div class="d-flex align-items-center justify-content-center">
           {{ playerRound.tricks }}
           <div class="mx-1">
             <chevron-up v-if="overscored"/>
@@ -13,6 +13,10 @@
             <check v-else/>
           </div>
           {{ playerRound.bid }}
+          <eye-off
+            v-if="playerRound.blind"
+            :size="14"
+            class="mx-2"/>
         </div>
       </div>
     </div>
@@ -23,9 +27,10 @@
   import ChevronUp from '../svg/ChevronUp'
   import ChevronDown from '../svg/ChevronDown'
   import Check from '../svg/Check'
+  import EyeOff from '../svg/EyeOff'
   export default {
     name: 'RoundPlayerSummary',
-    components: {Check, ChevronDown, ChevronUp},
+    components: {EyeOff, Check, ChevronDown, ChevronUp},
     props: {
       playerName: {
         type: String,

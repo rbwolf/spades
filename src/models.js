@@ -28,13 +28,13 @@ class Round extends Model {
 }
 
 class PlayerRound extends Model {
-  constructor (playerId, roundId) {
+  constructor (playerId, roundId, bid, tricks, blind) {
     super()
     this.playerId = playerId
     this.roundId = roundId
-    this.bid = 0
-    this.tricks = 0
-    this.blind = false
+    this.bid = bid
+    this.tricks = tricks
+    this.blind = blind
   }
 }
 

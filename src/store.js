@@ -37,7 +37,7 @@ export default {
       state.pointsToWin = parseInt(score)
     },
     updatePlayerRound (state, data) {
-      state.playerRounds[data.id] = { ...state.playerRounds[data.id], ...data}
+      Vue.set(state.playerRounds, data.id, { ...state.playerRounds[data.id], ...data })
     },
     clearAllData (state) {
       state.rounds = []
@@ -50,18 +50,11 @@ export default {
     startNewRound ({ state }) {
       const newRound = new Round()
       state.rounds = [...state.rounds, newRound]
-      const playerRounds = Object.values(state.players).map(player => new PlayerRound(player.id, newRound.id))
-      playerRounds.forEach(playerRound => Vue.set(state.playerRounds, playerRound.id, playerRound))
     },
     submitRound ({ state, getters, commit, dispatch }, { bids, tricks, blind }) {
       Object.values(state.players).forEach(player => {
-        const playerRound = getters.getCurrentPlayerRound(player.id)
-        commit('updatePlayerRound', {
-          id: playerRound.id,
-          bid: bids[player.id],
-          tricks: tricks[player.id],
-          blind: blind[player.id]
-        })
+        const playerRound = new PlayerRound(player.id, getters.currentRound.id, bids[player.id], tricks[player.id], blind[player.id])
+        commit('updatePlayerRound', playerRound)
       })
       dispatch('startNewRound')
     }
@@ -70,23 +63,37 @@ export default {
     getPlayerRoundsByRoundId: (state) => roundId => {
       return Object.values(state.playerRounds).filter(playerRound => playerRound.roundId === roundId)
     },
-    getCurrentRound: (state) => {
+    currentRound: (state) => {
       return state.rounds[state.rounds.length - 1]
     },
     getCurrentPlayerRound: (state, getters) => playerId => {
       return Object.values(state.playerRounds).find(playerRound =>
         playerRound.playerId === playerId &&
-        playerRound.roundId === getters.getCurrentRound.id)
+        playerRound.roundId === getters.currentRound.id)
     },
     getPlayerRoundScore: (state) => playerRoundId => {
-      const {bid, tricks} = state.playerRounds[playerRoundId]
+      const {bid, tricks, blind} = state.playerRounds[playerRoundId]
+
+      let score = 0
+
+      // Standard round score
       if (tricks < bid) {
-        return -(bid * state.matchedBidScore)
+        score = -(bid * state.matchedBidScore)
       } else if (tricks > bid) {
-        return (bid * state.matchedBidScore) + (tricks - bid) * state.surplusBidScore
+        score = (bid * state.matchedBidScore) + (tricks - bid) * state.surplusBidScore
       } else {
-        return (tricks * state.matchedBidScore)
+        score = (tricks * state.matchedBidScore)
       }
+
+      // Apply bonuses + penalties
+      if (blind) {
+        score += tricks === bid ? state.blindBonus : -state.blindBonus
+      }
+      if (bid === 0) {
+        score += tricks === bid ? state.nilBonus : -state.nilBonus
+      }
+
+      return score
     },
     getPlayerScore: (state, getters) => playerId => {
       return getters.getPlayerRounds(playerId).reduce((score, playerRound) => {
