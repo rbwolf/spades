@@ -20,7 +20,7 @@
 <script>
   import NewRound from './NewRound'
   import ScoreBoard from './ScoreBoard'
-  import RoundSummary from './RoundSummary'
+  import RoundSummary from './history/RoundSummary'
   import { mapActions, mapGetters, mapState } from 'vuex'
 
   export default {

@@ -35,7 +35,7 @@
 <script>
   import { mapActions, mapState } from 'vuex'
   import NewPlayerRound from './NewPlayerRound'
-  import ActionButton from './ActionButton'
+  import ActionButton from './common/ActionButton'
 
   export default {
     name: 'Round',

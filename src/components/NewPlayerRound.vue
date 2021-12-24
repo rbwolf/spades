@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import TextInput from './TextInput'
+  import TextInput from './common/TextInput'
   import BlindToggle from './BlindToggle'
 
   export default {

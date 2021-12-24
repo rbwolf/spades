@@ -20,9 +20,9 @@
 </template>
 
 <script>
-  import ChevronUp from './svg/ChevronUp'
-  import ChevronDown from './svg/ChevronDown'
-  import Check from './svg/Check'
+  import ChevronUp from '../svg/ChevronUp'
+  import ChevronDown from '../svg/ChevronDown'
+  import Check from '../svg/Check'
   export default {
     name: 'RoundPlayerSummary',
     components: {Check, ChevronDown, ChevronUp},

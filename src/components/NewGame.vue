@@ -37,8 +37,8 @@
 </template>
 
 <script>
-  import TextInput from './TextInput'
-  import ActionButton from './ActionButton'
+  import TextInput from './common/TextInput'
+  import ActionButton from './common/ActionButton'
   import { Player, Team } from '../models'
   import { mapMutations } from 'vuex'
 
