@@ -1,5 +1,8 @@
 # spades
 
+## Deploying
+This project is hosted on GitHub pages. Run the `deploy.sh` script from the `master` branch and everything should be taken care of for you.
+
 ## Project setup
 ```
 npm install
