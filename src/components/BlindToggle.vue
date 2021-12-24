@@ -35,6 +35,6 @@
   }
 
   .off {
-    opacity: 20%;
+    opacity: 0.2;
   }
 </style>

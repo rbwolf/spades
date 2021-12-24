@@ -32,7 +32,7 @@
       outline: 2px solid lightskyblue;
     }
     &:active, &:disabled {
-      opacity: 60%;
+      opacity: 0.6;
     }
   }
 
@@ -44,7 +44,7 @@
     background: none;
     &:active, &:disabled, &:focus {
       outline: none;
-      opacity: 60%;
+      opacity: 0.6;
     }
   }
 
