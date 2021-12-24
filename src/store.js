@@ -47,10 +47,15 @@ export default {
       const playerRounds = Object.values(state.players).map(player => new PlayerRound(player.id, newRound.id))
       playerRounds.forEach(playerRound => Vue.set(state.playerRounds, playerRound.id, playerRound))
     },
-    submitRound ({ state, getters, commit }, { bids, tricks }) {
+    submitRound ({ state, getters, commit }, { bids, tricks, blind }) {
       Object.values(state.players).forEach(player => {
         const playerRound = getters.getCurrentPlayerRound(player.id)
-        commit('updatePlayerRound', { id: playerRound.id, bid: bids[player.id], tricks: tricks[player.id] })
+        commit('updatePlayerRound', {
+          id: playerRound.id,
+          bid: bids[player.id],
+          tricks: tricks[player.id],
+          blind: blind[player.id]
+        })
       })
     }
   },

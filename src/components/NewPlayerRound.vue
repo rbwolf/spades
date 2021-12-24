@@ -1,13 +1,18 @@
 <template>
   <div class="player-round">
     <div class="row">
-      <div class="col">
+      <div class="col d-flex justify-content-center align-items-center">
         <p class="player-name">
           {{ player.name }}
         </p>
+        <blind-toggle
+          :blind="blind"
+          :disabled="!allowBidding"
+          @toggle="$emit('toggle-blind')"
+          class="mx-2"/>
       </div>
     </div>
-    <div class="row align-items-center">
+    <div class="row align-items-center mt-3">
       <div class="col col-12 col-md-4">
         <label>
           Bid
@@ -15,11 +20,11 @@
       </div>
       <div class="col col-12 col-md-8 px-2">
         <TextInput
-            v-model="bid"
-            @input="$emit('update-bid', Number(bid))"
-            :disabled="!allowBidding"
-            type="number"
-            ref="bid"/>
+          :value="bid"
+          @input="v => $emit('update-bid', Number(v))"
+          :disabled="!allowBidding"
+          type="number"
+          ref="bid"/>
       </div>
     </div>
     <div class="row align-items-center mt-2">
@@ -30,11 +35,11 @@
       </div>
       <div class="col col-12 col-md-8 px-2">
         <TextInput
-            v-model="tricks"
-            @input="$emit('update-tricks', Number(tricks))"
-            :disabled="!allowCounting"
-            type="number"
-            ref="tricks"/>
+          :value="tricks"
+          @input="v => $emit('update-tricks', Number(v))"
+          :disabled="!allowCounting"
+          type="number"
+          ref="tricks"/>
       </div>
     </div>
   </div>
@@ -42,13 +47,26 @@
 
 <script>
   import TextInput from './TextInput'
+  import BlindToggle from './BlindToggle'
 
   export default {
     name: 'PlayerRound',
-    components: {TextInput},
+    components: {BlindToggle, TextInput},
     props: {
       player: {
         type: Object,
+        required: true
+      },
+      bid: {
+        type: Number,
+        required: true
+      },
+      tricks: {
+        type: Number,
+        required: true
+      },
+      blind: {
+        type: Boolean,
         required: true
       },
       allowBidding: {
@@ -59,12 +77,6 @@
         type: Boolean,
         required: true
       }
-    },
-    data () {
-      return {
-        bid: 0,
-        tricks: 0
-      }
     }
   }
 </script>
@@ -74,6 +86,7 @@
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 0;
   }
 
   label {

@@ -8,8 +8,12 @@
         :player="player"
         :allow-bidding="bidding"
         :allow-counting="counting"
+        :bid="bids[player.id]"
+        :tricks="tricks[player.id]"
+        :blind="blind[player.id]"
         @update-bid="bid => updateBid(player.id, bid)"
-        @update-tricks="tricks => updateTricks(player.id, tricks)"/>
+        @update-tricks="tricks => updateTricks(player.id, tricks)"
+        @toggle-blind="toggleBlind(player.id)"/>
     </div>
     <div class="row mt-3">
       <action-button
@@ -40,6 +44,7 @@
       return {
         bids: {},
         tricks: {},
+        blind: {},
         bidding: true,
         counting: false,
         complete: false,
@@ -50,13 +55,14 @@
         'players'
       ]),
       buttonText () {
-        return this.bidding ? 'Submit Bids' : 'Confirm Tricks'
+        return this.bidding ? 'Submit Bids' : 'End Round'
       }
     },
     created () {
       Object.values(this.players).forEach(player => {
         this.$set(this.bids, player.id, 0)
         this.$set(this.tricks, player.id, 0)
+        this.$set(this.blind, player.id, false)
       })
     },
     methods: {
@@ -67,7 +73,7 @@
         if (this.bidding) {
           this.submitBids()
         } else {
-          this.submitTricks()
+          this.endRound()
         }
       },
       editBids () {
@@ -84,8 +90,11 @@
       updateTricks (playerId, tricks) {
         this.tricks[playerId] = tricks
       },
-      submitTricks () {
-        this.submitRound({ bids: this.bids, tricks: this.tricks })
+      endRound () {
+        this.submitRound({ bids: this.bids, tricks: this.tricks, blind: this.blind })
+      },
+      toggleBlind (playerId) {
+        this.blind[playerId] = !this.blind[playerId]
       }
     }
   }
