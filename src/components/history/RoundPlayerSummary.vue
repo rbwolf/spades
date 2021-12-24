@@ -13,10 +13,12 @@
             <check v-else/>
           </div>
           {{ playerRound.bid }}
-          <eye-off
-            v-if="playerRound.blind"
-            :size="14"
-            class="mx-2"/>
+          <div class="position-relative">
+            <eye-off
+                v-if="playerRound.blind"
+                :size="14"
+                class="blind-icon"/>
+          </div>
         </div>
       </div>
     </div>
@@ -56,5 +58,10 @@
   .player-name {
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .blind-icon {
+    position: absolute;
+    top: -6px;
+    left: 8px;
   }
 </style>

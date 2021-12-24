@@ -5,15 +5,17 @@
       :scores="scores"
       :bags="bags"/>
     <new-round class="mt-4"/>
-    <div class="d-flex flex-column-reverse">
+    <transition-group
+      name="history"
+      class="d-flex flex-column-reverse">
       <round-summary
-          class="mt-4"
+          class="mt-4 history-item"
           v-for="(round, i) in finishedRounds"
           :key="round.id"
           :roundId="round.id"
           :round-number="i + 1"
           :team-array="teamArray"/>
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -60,4 +62,22 @@
 </script>
 
 <style lang="scss" scoped>
+  .history-item {
+    display: inline-block;
+  }
+
+  .history-enter-active, .history-leave-active {
+    transition: all 750ms;
+    transition-property: opacity, transform;
+    transition-delay: 500ms, 300ms;
+  }
+
+  .history-enter, .history-leave-to {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+
+  .history-move {
+    transition: transform 1s;
+  }
 </style>
