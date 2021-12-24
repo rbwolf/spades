@@ -4,23 +4,30 @@
       :teams="teamArray"
       :scores="scores"
       :bags="bags"/>
-    <new-round
-      v-for="round in rounds"
-      class="mt-4"
-      :key="round.id"/>
+    <new-round class="mt-4"/>
+    <div class="d-flex flex-column-reverse">
+      <round-summary
+          class="mt-4"
+          v-for="(round, i) in finishedRounds"
+          :key="round.id"
+          :roundId="round.id"
+          :round-number="i + 1"
+          :team-array="teamArray"/>
+    </div>
   </div>
 </template>
 
 <script>
   import NewRound from './NewRound'
   import ScoreBoard from './ScoreBoard'
+  import RoundSummary from './RoundSummary'
   import { mapActions, mapGetters, mapState } from 'vuex'
 
   export default {
     name: 'Play',
-    components: {ScoreBoard, NewRound},
+    components: {RoundSummary, ScoreBoard, NewRound},
     created () {
-      this.addNewRound()
+      this.startNewRound()
     },
     computed: {
       ...mapState([
@@ -31,6 +38,9 @@
         'getTeamScore',
         'getTeamBags'
       ]),
+      finishedRounds () {
+        return this.rounds.slice(0, this.rounds.length - 1)
+      },
       teamArray () {
         return Object.values(this.teams)
       },
@@ -43,12 +53,11 @@
     },
     methods: {
       ...mapActions([
-        'addNewRound'
+        'startNewRound'
       ])
     }
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
 </style>

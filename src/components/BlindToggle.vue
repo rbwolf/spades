@@ -3,7 +3,7 @@
     class="blind-toggle"
     @click="$emit('toggle')">
     <component
-      :is="blind ? 'eye' : 'eye-off'"
+      :is="blind ? 'eye-off' : 'eye'"
       class="icon"
       :class="{'off': !blind}"/>
   </button>

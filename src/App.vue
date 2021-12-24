@@ -39,6 +39,7 @@
 
   .game {
     max-width: 1000px;
+    padding-bottom: 100px;
   }
 
   .fade-enter-active, .fade-leave-active {
