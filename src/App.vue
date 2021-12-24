@@ -1,7 +1,7 @@
 <template>
   <div>
     <AppBar/>
-    <div class="container">
+    <div class="container game">
       <div class="mt-3">
         <transition
           name="fade"
@@ -35,6 +35,10 @@
     font-family: 'Raleway', Helvetica, sans-serif;
     margin: 0;
     background-color: #fafafa;
+  }
+
+  .game {
+    max-width: 1000px;
   }
 
   .fade-enter-active, .fade-leave-active {

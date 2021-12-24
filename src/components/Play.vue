@@ -1,7 +1,7 @@
 <template>
-  <div class="container mt-4">
+  <div class="mt-4">
     <score-board
-      :teams="teams"
+      :teams="teamArray"
       :scores="scores"
       :bags="bags"/>
     <new-round
@@ -14,10 +14,10 @@
 <script>
   import NewRound from './NewRound'
   import ScoreBoard from './ScoreBoard'
-  import { mapGetters, mapMutations, mapState } from 'vuex'
+  import { mapActions, mapGetters, mapState } from 'vuex'
 
   export default {
-    name: 'Game',
+    name: 'Play',
     components: {ScoreBoard, NewRound},
     created () {
       this.addNewRound()
@@ -31,15 +31,18 @@
         'getTeamScore',
         'getTeamBags'
       ]),
+      teamArray () {
+        return Object.values(this.teams)
+      },
       scores () {
-        return this.teams.map(team => this.getTeamScore(team.id))
+        return this.teamArray.map(team => this.getTeamScore(team.id))
       },
       bags () {
-        return this.teams.map(team => this.getTeamBags(team.id))
+        return this.teamArray.map(team => this.getTeamBags(team.id))
       }
     },
     methods: {
-      ...mapMutations([
+      ...mapActions([
         'addNewRound'
       ])
     }

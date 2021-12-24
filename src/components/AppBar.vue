@@ -7,12 +7,14 @@
             <h1 class="title">
               Spades
             </h1>
-            <spade class="spade"/>
+            <spade
+              :size="28"
+              class="spade"/>
           </div>
         </div>
         <div
           class="col d-flex align-items-center justify-content-end new-game"
-          @click="$emit('new-game')">
+          @click="$router.push('new')">
           <circle-plus/>
         </div>
       </div>

@@ -3,8 +3,8 @@
       class="text-input"
       :type="type"
       :maxlength="10"
-      :min="1"
-      :max="1000"
+      :min="min"
+      :max="max"
       :placeholder="placeholder"
       :value="value"
       @input="$emit('input', $event.target.value)"/>
@@ -15,7 +15,7 @@
     name: 'TextInput',
     props: {
       value: {
-        type: String,
+        type: [String, Number],
         default: ''
       },
       type: {
@@ -25,6 +25,14 @@
       placeholder: {
         type: String,
         required: false
+      },
+      min: {
+        type: Number,
+        default: 1
+      },
+      max: {
+        type: Number,
+        default: 13
       }
     }
   }
@@ -39,5 +47,8 @@
     /*box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);*/
     box-sizing: border-box;
     width: 100%;
+    &:disabled {
+      background-color: lightgrey;
+    }
   }
 </style>

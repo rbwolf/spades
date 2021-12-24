@@ -1,21 +1,22 @@
 import { PlayerRound, Round } from './models'
+import Vue from 'vue'
 
 export default {
   state: {
-    teams: [
-      // Team
-      {id: 0, name: 'Team 1'},
-      {id: 1, name: 'Team 2'}
-    ],
-    players: [
-      // Player
-      {id: 0, teamId: 0, name: 'Ryan'},
-      {id: 1, teamId: 0, name: 'Sophie'},
-      {id: 2, teamId: 1, name: 'Shannon'},
-      {id: 3, teamId: 1, name: 'Kyle'}
-    ],
     rounds: [],
-    playerRounds: [],
+    teams: {
+      // Team
+      0: {id: 0, name: 'Team 1'},
+      1: {id: 1, name: 'Team 2'}
+    },
+    players: {
+      // Player
+      0: {id: 0, teamId: 0, name: 'Ryan'},
+      1: {id: 1, teamId: 0, name: 'Sophie'},
+      2: {id: 2, teamId: 1, name: 'Shannon'},
+      3: {id: 3, teamId: 1, name: 'Kyle'}
+    },
+    playerRounds: {},
     pointsToWin: 500,
     matchedBidScore: 10,
     surplusBidScore: 1,
@@ -35,15 +36,33 @@ export default {
     setPointsToWin (state, score) {
       state.pointsToWin = parseInt(score)
     },
-    addNewRound (state) {
-      const newRound = new Round()
-      state.rounds = [...state.rounds, newRound]
-      const playerRounds = state.players.map(player => new PlayerRound(player.id, newRound.id))
-      state.playerRounds = [...state.playerRounds, ...playerRounds]
+    updatePlayerRound (state, data) {
+      state.playerRounds[data.id] = { ...state.playerRounds[data.id], ...data}
     }
   },
-  actions: {},
+  actions: {
+    addNewRound ({ state }) {
+      const newRound = new Round()
+      state.rounds = [...state.rounds, newRound]
+      const playerRounds = Object.values(state.players).map(player => new PlayerRound(player.id, newRound.id))
+      playerRounds.forEach(playerRound => Vue.set(state.playerRounds, playerRound.id, playerRound))
+    },
+    submitRound ({ state, getters, commit }, { bids, tricks }) {
+      Object.values(state.players).forEach(player => {
+        const playerRound = getters.getCurrentPlayerRound(player.id)
+        commit('updatePlayerRound', { id: playerRound.id, bid: bids[player.id], tricks: tricks[player.id] })
+      })
+    }
+  },
   getters: {
+    getCurrentRound: (state) => {
+      return state.rounds[state.rounds.length - 1]
+    },
+    getCurrentPlayerRound: (state, getters) => playerId => {
+      return Object.values(state.playerRounds).find(playerRound =>
+        playerRound.playerId === playerId &&
+        playerRound.roundId === getters.getCurrentRound.id)
+    },
     getPlayerScore: (state, getters) => playerId => {
       return getters.getPlayerRounds(playerId).reduce((score, playerRound) => {
         const {bid, tricks} = playerRound
@@ -57,7 +76,7 @@ export default {
       }, 0)
     },
     getPlayerRounds: state => playerId => {
-      return state.playerRounds.filter(playerRound => playerRound.playerId === playerId)
+      return Object.values(state.playerRounds).filter(playerRound => playerRound.playerId === playerId)
     },
     getPlayerBags: (state, getters) => playerId => {
       return getters.getPlayerRounds(playerId).reduce((bags, playerRound) => {

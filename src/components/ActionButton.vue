@@ -1,6 +1,6 @@
 <template>
   <button
-      class="spades-button"
+      :class="variant === 'secondary' ? 'secondary-button' : 'primary-button'"
       @click="$emit('click')">
     <slot/>
   </button>
@@ -9,19 +9,43 @@
 <script>
   export default {
     name: 'Button',
+    props: {
+      variant: {
+        type: String,
+        default: 'primary'
+      }
+    }
   }
 </script>
 
 <style lang="scss" scoped>
-  .spades-button {
-    outline: none;
-    background-color: #44A9AF;
+  $accent: #44A9AF;
+
+  .primary-button {
+    user-select: none;
+    background-color: $accent;
     color: white;
     border: none;
     border-radius: 8px;
     padding: 12px;
-    &:active {
-      opacity: 80%;
+    &:focus {
+      outline: 2px solid lightskyblue;
+    }
+    &:active, &:disabled {
+      opacity: 60%;
     }
   }
+
+  .secondary-button {
+    user-select: none;
+    color: $accent;
+    border: none;
+    padding: 12px;
+    background: none;
+    &:active, &:disabled, &:focus {
+      outline: none;
+      opacity: 60%;
+    }
+  }
+
 </style>
