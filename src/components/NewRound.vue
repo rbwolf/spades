@@ -59,11 +59,7 @@
       }
     },
     created () {
-      Object.values(this.players).forEach(player => {
-        this.$set(this.bids, player.id, 0)
-        this.$set(this.tricks, player.id, 0)
-        this.$set(this.blind, player.id, false)
-      })
+      this.initRound()
     },
     methods: {
       ...mapActions([
@@ -92,9 +88,19 @@
       },
       endRound () {
         this.submitRound({ bids: this.bids, tricks: this.tricks, blind: this.blind })
+        this.initRound()
       },
       toggleBlind (playerId) {
         this.blind[playerId] = !this.blind[playerId]
+      },
+      initRound () {
+        this.bidding = true
+        this.counting = false
+        Object.values(this.players).forEach(player => {
+          this.$set(this.bids, player.id, 0)
+          this.$set(this.tricks, player.id, 0)
+          this.$set(this.blind, player.id, false)
+        })
       }
     }
   }

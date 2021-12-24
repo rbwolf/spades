@@ -15,11 +15,20 @@
 
 <script>
   import AppBar from './components/AppBar'
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'App',
     components: {
       AppBar
+    },
+    methods: {
+      ...mapActions([
+        'loadState'
+      ])
+    },
+    created () {
+      this.loadState()
     }
   }
 </script>

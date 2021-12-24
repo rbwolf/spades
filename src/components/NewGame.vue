@@ -40,7 +40,7 @@
   import TextInput from './common/TextInput'
   import ActionButton from './common/ActionButton'
   import { Player, Team } from '../models'
-  import { mapMutations } from 'vuex'
+  import { mapActions, mapMutations } from 'vuex'
 
   export default {
     name: 'NewGame',
@@ -49,7 +49,7 @@
       return {
         teams: [['', ''], ['', '']],
         names: [],
-        score: '500'
+        score: 300
       }
     },
     mounted () {
@@ -62,7 +62,10 @@
         'addTeam',
         'setPointsToWin'
       ]),
-      initGame () {
+      ...mapActions([
+        'saveState'
+      ]),
+      async initGame () {
         for (const i in this.teams) {
           const team = new Team('Team ' + this.names[i])
           this.addTeam(team)
@@ -72,6 +75,7 @@
           }
         }
         this.setPointsToWin(this.score)
+        await this.saveState()
         this.$router.push('play')
       }
     }

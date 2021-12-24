@@ -1,30 +1,35 @@
 import { PlayerRound, Round } from './models'
 import Vue from 'vue'
 
+const STORAGE_KEY = 'spades'
+
 export default {
   state: {
+    loaded: false,
     rounds: [],
     teams: {
       // Team
-      '0': {id: '0', name: 'Team 1'},
-      '1': {id: '1', name: 'Team 2'}
+      // '0': {id: '0', name: 'Team 1'},
+      // '1': {id: '1', name: 'Team 2'}
     },
     players: {
       // Player
-      '0': {id: '0', teamId: '0', name: 'Ryan'},
-      '1': {id: '1', teamId: '0', name: 'Sophie'},
-      '2': {id: '2', teamId: '1', name: 'Shannon'},
-      '3': {id: '3', teamId: '1', name: 'Kyle'}
+      // '0': {id: '0', teamId: '0', name: 'Ryan'},
+      // '1': {id: '1', teamId: '0', name: 'Sophie'},
+      // '2': {id: '2', teamId: '1', name: 'Shannon'},
+      // '3': {id: '3', teamId: '1', name: 'Kyle'}
     },
     playerRounds: {},
-    pointsToWin: 500,
-    matchedBidScore: 10,
-    surplusBidScore: 1,
-    bagLimit: 10,
-    bustPenalty: 100,
-    blindBonus: 100,
-    nilBonus: 100,
-    blindNilBonus: 200
+    settings: {
+      pointsToWin: 300,
+      matchedBidScore: 10,
+      surplusBidScore: 1,
+      bagLimit: 10,
+      bustPenalty: 100,
+      blindBonus: 100,
+      nilBonus: 100,
+      blindNilBonus: 200
+    }
   },
   mutations: {
     addTeam (state, team) {
@@ -44,19 +49,45 @@ export default {
       state.playersRounds = {}
       state.players = {}
       state.teams = {}
+    },
+    setState (state, newState) {
+      Object.entries(state).forEach(([k,]) => {
+        Vue.set(state, k, newState[k])
+      })
+    },
+    setLoaded (state, val) {
+      state.loaded = val
     }
   },
   actions: {
-    startNewRound ({ state }) {
+    async submitRound ({ state, commit, dispatch }, { bids, tricks, blind }) {
+      // Create new round
       const newRound = new Round()
       state.rounds = [...state.rounds, newRound]
-    },
-    submitRound ({ state, getters, commit, dispatch }, { bids, tricks, blind }) {
+
+      // Create player rounds and attach to new round
       Object.values(state.players).forEach(player => {
-        const playerRound = new PlayerRound(player.id, getters.currentRound.id, bids[player.id], tricks[player.id], blind[player.id])
+        const playerRound = new PlayerRound(player.id, newRound.id, bids[player.id], tricks[player.id], blind[player.id])
         commit('updatePlayerRound', playerRound)
       })
-      dispatch('startNewRound')
+      dispatch('saveState')
+    },
+    async restart ({ commit, dispatch }) {
+      commit('clearAllData')
+      await dispatch('clearState')
+    },
+    loadState ({ commit }) {
+      const storedState = window.localStorage.getItem(STORAGE_KEY)
+      if (storedState) {
+        commit('setState', JSON.parse(storedState))
+        commit('setLoaded', true)
+      }
+    },
+    saveState ({ state }) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    },
+    clearState () {
+      window.localStorage.removeItem(STORAGE_KEY)
     }
   },
   getters: {
@@ -73,24 +104,25 @@ export default {
     },
     getPlayerRoundScore: (state) => playerRoundId => {
       const {bid, tricks, blind} = state.playerRounds[playerRoundId]
+      const {matchedBidScore, surplusBidScore, blindBonus, nilBonus} = state.settings
 
       let score = 0
 
       // Standard round score
       if (tricks < bid) {
-        score = -(bid * state.matchedBidScore)
+        score = -(bid * matchedBidScore)
       } else if (tricks > bid) {
-        score = (bid * state.matchedBidScore) + (tricks - bid) * state.surplusBidScore
+        score = (bid * matchedBidScore) + (tricks - bid) * surplusBidScore
       } else {
-        score = (tricks * state.matchedBidScore)
+        score = (tricks * matchedBidScore)
       }
 
       // Apply bonuses + penalties
       if (blind) {
-        score += tricks === bid ? state.blindBonus : -state.blindBonus
+        score += tricks === bid ? blindBonus : -blindBonus
       }
       if (bid === 0) {
-        score += tricks === bid ? state.nilBonus : -state.nilBonus
+        score += tricks === bid ? nilBonus : -nilBonus
       }
 
       return score
@@ -121,15 +153,15 @@ export default {
       const playerIds = getters.getTeamPlayerIds(teamId)
       const totalScore = playerIds.map(getters.getPlayerScore).reduce((sum, curr) => sum + curr)
       const bags = getters.getTotalTeamBags(teamId)
-      const bagPenalties = Math.floor(bags / state.bagLimit)
-      return totalScore - (bagPenalties * state.bustPenalty)
+      const bagPenalties = Math.floor(bags / state.settings.bagLimit)
+      return totalScore - (bagPenalties * state.settings.bustPenalty)
     },
     getTotalTeamBags: (state, getters) => teamId => {
       const playerIds = getters.getTeamPlayerIds(teamId)
       return playerIds.map(getters.getPlayerBags).reduce((sum, curr) => sum + curr)
     },
     getTeamBags: (state, getters) => teamId => {
-      return getters.getTotalTeamBags(teamId) % state.bagLimit
+      return getters.getTotalTeamBags(teamId) % state.settings.bagLimit
     }
   }
 }

@@ -61,6 +61,7 @@
   }
   .blind-icon {
     position: absolute;
+    opacity: 25%;
     top: -6px;
     left: 8px;
   }

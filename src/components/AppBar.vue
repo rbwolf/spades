@@ -25,7 +25,7 @@
 <script>
   import Spade from './svg/Spade'
   import CirclePlus from './svg/CirclePlus'
-  import { mapMutations } from 'vuex'
+  import { mapActions, mapMutations } from 'vuex'
 
   export default {
     name: 'App',
@@ -34,10 +34,14 @@
       ...mapMutations([
         'clearAllData'
       ]),
-      onClickNew () {
+      ...mapActions([
+        'clearState'
+      ]),
+      async onClickNew () {
         if (confirm('Are you sure you want to start a new game?')) {
-          this.clearAllData()
+          await this.clearState()
           this.$router.push('new')
+          this.clearAllData()
         }
       }
     }

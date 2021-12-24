@@ -3,16 +3,11 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import store from './store'
-import routes from './routes'
+import router from './router'
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
 Vue.use(VueRouter)
-
-const router = new VueRouter({
-  base: process.env.NODE_ENV === 'production' ? '/spades/' : '/',
-  routes: routes
-})
 
 const appStore = new Vuex.Store(store)
 

@@ -10,7 +10,7 @@
       class="d-flex flex-column-reverse">
       <round-summary
           class="mt-4 history-item"
-          v-for="(round, i) in finishedRounds"
+          v-for="(round, i) in rounds"
           :key="round.id"
           :roundId="round.id"
           :round-number="i + 1"
@@ -23,26 +23,21 @@
   import NewRound from './NewRound'
   import ScoreBoard from './ScoreBoard'
   import RoundSummary from './history/RoundSummary'
-  import { mapActions, mapGetters, mapState } from 'vuex'
+  import { mapGetters, mapState } from 'vuex'
 
   export default {
     name: 'Play',
     components: {RoundSummary, ScoreBoard, NewRound},
-    created () {
-      this.startNewRound()
-    },
     computed: {
       ...mapState([
         'teams',
-        'rounds'
+        'rounds',
+        'loaded'
       ]),
       ...mapGetters([
         'getTeamScore',
         'getTeamBags'
       ]),
-      finishedRounds () {
-        return this.rounds.slice(0, this.rounds.length - 1)
-      },
       teamArray () {
         return Object.values(this.teams)
       },
@@ -52,11 +47,6 @@
       bags () {
         return this.teamArray.map(team => this.getTeamBags(team.id))
       }
-    },
-    methods: {
-      ...mapActions([
-        'startNewRound'
-      ])
     }
   }
 </script>
