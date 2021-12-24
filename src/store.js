@@ -81,7 +81,7 @@ export default {
     getPlayerRoundScore: (state) => playerRoundId => {
       const {bid, tricks} = state.playerRounds[playerRoundId]
       if (tricks < bid) {
-        return bid * state.matchedBidScore
+        return -(bid * state.matchedBidScore)
       } else if (tricks > bid) {
         return (bid * state.matchedBidScore) + (tricks - bid) * state.surplusBidScore
       } else {
