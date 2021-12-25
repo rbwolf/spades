@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <h2 class="text-center fw-bold">
-        <ICountUp :endVal="teamScore"/>
+        {{ teamScore }}
       </h2>
     </div>
     <div class="row mt-2">
@@ -16,13 +16,12 @@
 </template>
 
 <script>
-  import ICountUp from 'vue-countup-v2';
   import { mapGetters, mapState } from 'vuex'
   import RoundPlayerSummary from './RoundPlayerSummary'
 
   export default {
     name: 'RoundTeamSummary',
-    components: {RoundPlayerSummary, ICountUp},
+    components: {RoundPlayerSummary},
     props: {
       teamId: {
         type: String,
