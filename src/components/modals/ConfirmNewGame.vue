@@ -37,9 +37,11 @@
       ]),
       async onConfirm () {
         await this.clearState()
-        this.$router.push('new')
-        this.closeModal()
-        this.clearAllData()
+        this.$nextTick(() => {
+          this.$router.push('new')
+          this.closeModal()
+          this.clearAllData()
+        })
       },
       onClose () {
         this.closeModal()
