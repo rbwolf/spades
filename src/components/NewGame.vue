@@ -40,7 +40,7 @@
   import TextInput from './common/TextInput'
   import ActionButton from './common/ActionButton'
   import { Player, Team } from '../models'
-  import { mapActions, mapMutations } from 'vuex'
+  import { mapActions, mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'NewGame',
@@ -52,9 +52,15 @@
         score: 300
       }
     },
-    mounted () {
+    computed: {
+      ...mapState([
+        'settings'
+      ])
+    },
+    created () {
       // TODO: Put something fun here
       this.names = ['1', '2']
+      this.score = this.settings.score
     },
     methods: {
       ...mapMutations([
