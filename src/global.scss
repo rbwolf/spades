@@ -1,0 +1,13 @@
+$white: #FEFEFE;
+$accent: #44A9AF;
+$borderRadius: 8px;
+$defaultBorder: 1px solid lightgrey;
+$defaultShadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 100ms;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}

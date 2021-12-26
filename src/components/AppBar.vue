@@ -48,9 +48,11 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../global.scss';
+
   .bar {
-    background-color: #fefefe;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    background-color: $white;
+    box-shadow: $defaultShadow;
     padding: 8px 0;
   }
 

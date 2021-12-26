@@ -39,14 +39,15 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../../global.scss';
+
   .text-input {
-    border-radius: 8px;
+    width: 100%;
     outline: none;
     padding: 12px;
-    border: 1px solid lightgrey;
-    /*box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);*/
     box-sizing: border-box;
-    width: 100%;
+    border: $defaultBorder;
+    border-radius: $borderRadius;
     &:disabled {
       background-color: lightgrey;
     }

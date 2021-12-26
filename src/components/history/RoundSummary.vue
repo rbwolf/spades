@@ -39,11 +39,13 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '../../global.scss';
+
   .round {
     padding: 18px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    border: 1px solid lightgrey;
+    box-shadow: $defaultShadow;
+    border-radius: $borderRadius;
+    border: $defaultBorder;
   }
 </style>

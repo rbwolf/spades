@@ -26,7 +26,7 @@
 </script>
 
 <style lang="scss" scoped>
-  $accent: #44A9AF;
+  @import '../../global.scss';
 
   .primary-button {
     user-select: none;

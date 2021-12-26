@@ -46,19 +46,11 @@
   body {
     font-family: 'Raleway', Helvetica, sans-serif;
     margin: 0;
-    background-color: #fafafa;
+    background-color: $white;
   }
 
   .game {
     max-width: 1000px;
     padding-bottom: 100px;
-  }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity 100ms;
-  }
-
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
   }
 </style>

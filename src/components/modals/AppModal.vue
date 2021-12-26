@@ -35,6 +35,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../../global.scss';
+
   .modal-bg {
     position: absolute;
     z-index: 1;
@@ -47,9 +49,9 @@
   .content {
     position: relative;
     top: 30%;
-    border-radius: 8px;
-    border: 1px solid lightgrey;
-    background-color: #fefefe;
     padding: 24px;
+    border-radius: $borderRadius;
+    border: $defaultBorder;
+    background-color: $white;
   }
 </style>
