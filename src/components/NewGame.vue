@@ -69,9 +69,11 @@
         for (const i in this.teams) {
           const team = new Team('Team ' + this.names[i])
           this.addTeam(team)
+          let playerIndex = 1
           for (const name of this.teams[i]) {
-            const player = new Player(name, team.id)
+            const player = new Player(name || `Player ${playerIndex}`, team.id)
             this.addPlayer(player)
+            playerIndex++
           }
         }
         this.setPointsToWin(this.score)
