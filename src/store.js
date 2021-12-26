@@ -22,7 +22,7 @@ export default {
     },
     playerRounds: {},
     settings: {
-      pointsToWin: 300,
+      pointsToWin: 200,
       matchedBidScore: 10,
       surplusBidScore: 1,
       bagLimit: 10,
@@ -37,9 +37,6 @@ export default {
     },
     addPlayer (state, player) {
       state.players = {...state.players, [player.id]: player}
-    },
-    setPointsToWin (state, score) {
-      state.pointsToWin = parseInt(score)
     },
     updatePlayerRound (state, data) {
       Vue.set(state.playerRounds, data.id, { ...state.playerRounds[data.id], ...data })

@@ -69,8 +69,7 @@
         'closeModal'
       ]),
       onSave () {
-        const numericEntries = Object.entries(this.localSettings).map(([k, v]) => [k, Number(v)])
-        this.updateSettings(Object.fromEntries(numericEntries))
+        this.updateSettings(this.localSettings)
         this.closeModal()
       },
       onCancel () {

@@ -23,7 +23,7 @@
         <h1>What are we playing to?</h1>
         <text-input
             type="number"
-            v-model="score"/>
+            v-model="pointsToWin"/>
       </div>
     </div>
     <div class="row">
@@ -49,7 +49,7 @@
       return {
         teams: [['', ''], ['', '']],
         names: [],
-        score: 300
+        pointsToWin: 300
       }
     },
     computed: {
@@ -60,13 +60,14 @@
     created () {
       // TODO: Put something fun here
       this.names = ['1', '2']
-      this.score = this.settings.score
+      this.pointsToWin = this.settings.pointsToWin
     },
     methods: {
       ...mapMutations([
         'addPlayer',
         'addTeam',
-        'setPointsToWin'
+        'setPointsToWin',
+        'updateSettings'
       ]),
       ...mapActions([
         'saveState'
@@ -82,7 +83,7 @@
             playerIndex++
           }
         }
-        this.setPointsToWin(this.score)
+        this.updateSettings({ pointsToWin: this.pointsToWin })
         await this.saveState()
         this.$router.push('play')
       }

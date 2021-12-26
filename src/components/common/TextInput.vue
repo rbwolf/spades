@@ -7,7 +7,7 @@
       :max="max"
       :placeholder="placeholder"
       :value="value"
-      @input="$emit('input', $event.target.value)"/>
+      @input="emitValue"/>
 </template>
 
 <script>
@@ -33,6 +33,13 @@
       max: {
         type: Number,
         default: 13
+      }
+    },
+    methods: {
+      emitValue (e) {
+        this.$emit('input', this.type === 'number'
+          ? Number(e.target.value)
+          : e.target.value)
       }
     }
   }
