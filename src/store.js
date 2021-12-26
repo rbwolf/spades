@@ -28,8 +28,7 @@ export default {
       bagLimit: 10,
       bustPenalty: 100,
       blindBonus: 100,
-      nilBonus: 100,
-      blindNilBonus: 200
+      nilBonus: 100
     }
   },
   mutations: {
@@ -64,6 +63,9 @@ export default {
     },
     closeModal (state) {
       state.modal = null
+    },
+    updateSettings (state, settings) {
+      state.settings = { ...state.settings, ...settings }
     }
   },
   actions: {

@@ -1,10 +1,12 @@
 <template>
   <transition name="fade">
     <div
-        v-if="modal !== null"
-        @click="onClose"
-        class="modal-bg">
-      <div class="content">
+      v-if="modal !== null"
+      @click="onClose"
+      class="modal-bg">
+      <div
+        @click="onClickContent"
+        class="content">
         <component :is="modal"/>
       </div>
     </div>
@@ -14,10 +16,11 @@
 <script>
   import { mapMutations, mapState } from 'vuex'
   import ConfirmNewGame from './ConfirmNewGame'
+  import Settings from './Settings'
 
   export default {
     name: 'Modal',
-    components: { ConfirmNewGame },
+    components: { ConfirmNewGame, Settings },
     computed: {
       ...mapState([
         'modal',
@@ -29,6 +32,9 @@
       ]),
       onClose () {
         this.closeModal()
+      },
+      onClickContent (e) {
+        e.stopPropagation()
       }
     }
   }
@@ -39,6 +45,8 @@
 
   .modal-bg {
     position: absolute;
+    display: flex;
+    align-items: center;
     z-index: 1;
     width: 100vw;
     height: 100vh;
@@ -47,11 +55,12 @@
   }
 
   .content {
-    position: relative;
-    top: 30%;
+    z-index: 2;
+    width: 100%;
     padding: 24px;
     border-radius: $borderRadius;
     border: $defaultBorder;
     background-color: $white;
   }
+
 </style>

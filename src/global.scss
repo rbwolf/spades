@@ -5,7 +5,7 @@ $defaultBorder: 1px solid lightgrey;
 $defaultShadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 100ms;
+  transition: opacity 150ms;
 }
 
 .fade-enter, .fade-leave-to {

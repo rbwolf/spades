@@ -13,9 +13,9 @@
           </div>
         </div>
         <div
-          v-if="$route.name === 'play'"
           class="col d-flex align-items-center justify-content-end new-game"
-          @click="onClickNew">
+          @click="onClick">
+          <!-- TODO: Switch out a gear icon when downloading one isn't $25 -->
           <circle-plus/>
         </div>
       </div>
@@ -40,9 +40,9 @@
       ...mapActions([
         'clearState'
       ]),
-      async onClickNew () {
-        this.openModal('confirm-new-game')
-      }
+      onClick () {
+        this.openModal(this.$route.name === 'new' ? 'settings' : 'confirm-new-game')
+      },
     }
   }
 </script>
