@@ -1,6 +1,9 @@
 <template>
   <button
-      :class="variant === 'secondary' ? 'secondary-button' : 'primary-button'"
+      :class="[
+        variant === 'secondary' ? 'secondary-button' : 'primary-button',
+        {'w-100': block}
+      ]"
       @click="$emit('click')">
     <slot/>
   </button>
@@ -13,6 +16,10 @@
       variant: {
         type: String,
         default: 'primary'
+      },
+      block: {
+        type: Boolean,
+        default: false
       }
     }
   }

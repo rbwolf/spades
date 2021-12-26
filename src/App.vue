@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppModal/>
     <AppBar/>
     <div class="container game">
       <div class="mt-3">
@@ -16,10 +17,12 @@
 <script>
   import AppBar from './components/AppBar'
   import { mapActions } from 'vuex'
+  import AppModal from './components/modals/AppModal'
 
   export default {
     name: 'App',
     components: {
+      AppModal,
       AppBar
     },
     methods: {

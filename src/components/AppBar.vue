@@ -13,6 +13,7 @@
           </div>
         </div>
         <div
+          v-if="$route.name === 'play'"
           class="col d-flex align-items-center justify-content-end new-game"
           @click="onClickNew">
           <circle-plus/>
@@ -32,17 +33,15 @@
     components: {CirclePlus, Spade},
     methods: {
       ...mapMutations([
-        'clearAllData'
+        'clearAllData',
+        'openModal',
+        'closeModal'
       ]),
       ...mapActions([
         'clearState'
       ]),
       async onClickNew () {
-        if (confirm('Are you sure you want to start a new game?')) {
-          await this.clearState()
-          this.$router.push('new')
-          this.clearAllData()
-        }
+        this.openModal('confirm-new-game')
       }
     }
   }

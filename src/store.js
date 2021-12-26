@@ -5,6 +5,7 @@ const STORAGE_KEY = 'spades'
 
 export default {
   state: {
+    modal: null,
     loaded: false,
     rounds: [],
     teams: {
@@ -57,6 +58,12 @@ export default {
     },
     setLoaded (state, val) {
       state.loaded = val
+    },
+    openModal (state, modalName) {
+      state.modal = modalName
+    },
+    closeModal (state) {
+      state.modal = null
     }
   },
   actions: {
