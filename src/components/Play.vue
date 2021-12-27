@@ -23,11 +23,14 @@
   import NewRound from './NewRound'
   import ScoreBoard from './ScoreBoard'
   import RoundSummary from './history/RoundSummary'
-  import { mapGetters, mapState } from 'vuex'
+  import { mapGetters, mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'Play',
     components: {RoundSummary, ScoreBoard, NewRound},
+    mounted() {
+      this.openModal('game-over')
+    },
     computed: {
       ...mapState([
         'teams',
@@ -47,6 +50,16 @@
       bags () {
         return this.teamArray.map(team => this.getTeamBags(team.id))
       }
+    },
+    watch: {
+      scores (scores) {
+        console.log(scores)
+      }
+    },
+    methods: {
+      ...mapMutations([
+        'openModal'
+      ])
     }
   }
 </script>

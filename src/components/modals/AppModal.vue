@@ -6,7 +6,8 @@
       class="modal-bg">
       <div
         @click="onClickContent"
-        class="content">
+        class="content"
+        :class="{'padded': modal !== 'game-over'}">
         <component :is="modal"/>
       </div>
     </div>
@@ -17,10 +18,11 @@
   import { mapMutations, mapState } from 'vuex'
   import ConfirmNewGame from './ConfirmNewGame'
   import Settings from './Settings'
+  import GameOver from './GameOver'
 
   export default {
     name: 'Modal',
-    components: { ConfirmNewGame, Settings },
+    components: { ConfirmNewGame, Settings, GameOver },
     computed: {
       ...mapState([
         'modal',
@@ -57,10 +59,12 @@
   .content {
     z-index: 2;
     width: 100%;
-    padding: 24px;
     border-radius: $borderRadius;
     border: $defaultBorder;
     background-color: $white;
+    &.padded {
+      padding: 24px;
+    }
   }
 
 </style>
