@@ -22,7 +22,7 @@ export default {
     },
     playerRounds: {},
     settings: {
-      pointsToWin: 200,
+      pointsToWin: 300,
       matchedBidScore: 10,
       surplusBidScore: 1,
       bagLimit: 10,

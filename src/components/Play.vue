@@ -28,9 +28,6 @@
   export default {
     name: 'Play',
     components: {RoundSummary, ScoreBoard, NewRound},
-    mounted() {
-      this.openModal('game-over')
-    },
     computed: {
       ...mapState([
         'teams',
