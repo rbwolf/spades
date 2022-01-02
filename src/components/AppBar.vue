@@ -16,8 +16,8 @@
           class="col d-flex align-items-center justify-content-end new-game"
           @click="onClick">
           <!-- TODO: Switch out a gear icon when downloading one isn't $25 -->
-          <component
-            :is="actionIcon"
+          <icon-button
+            :icon-name="actionIcon"
             :size="32"/>
         </div>
       </div>
@@ -27,13 +27,12 @@
 
 <script>
   import Spade from './svg/Spade'
-  import CirclePlus from './svg/CirclePlus'
   import { mapActions, mapMutations } from 'vuex'
-  import Gear from './svg/Gear'
+  import IconButton from './common/IconButton'
 
   export default {
     name: 'App',
-    components: {CirclePlus, Spade, Gear},
+    components: {IconButton, Spade},
     methods: {
       ...mapMutations([
         'clearAllData',

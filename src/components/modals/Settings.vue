@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <h5 class="fw-bold pb-2">Settings</h5>
+  <div class="settings-modal">
+    <div class="d-flex align-items-center justify-content-between pb-2">
+      <h5 class="fw-bold mb-0">Settings</h5>
+      <icon-button
+        @click="closeModal"
+        icon-name="x"/>
+    </div>
     <div class="settings">
       <div
         v-for="[setting,] in availableSettings"
@@ -34,10 +39,11 @@
   import { mapMutations, mapState } from 'vuex'
   import TextInput from '../common/TextInput'
   import ActionButton from '../common/ActionButton'
+  import IconButton from '../common/IconButton'
 
   export default {
     name: 'Settings',
-    components: {TextInput, ActionButton},
+    components: {IconButton, TextInput, ActionButton},
     data () {
       return {
         localSettings: {},
@@ -81,6 +87,11 @@
 
 <style lang="scss" scoped>
   @import '../../global.scss';
+
+  .settings-modal {
+    max-width: 800px;
+    min-width: 300px;
+  }
 
   .settings {
     max-height: 60vh;

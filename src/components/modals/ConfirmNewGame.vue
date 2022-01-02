@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="new-game">
     <h5>
       Are you sure you want to start a new game?
     </h5>
-    <div class="mt-3">
+    <div class="mt-4">
       <action-button
         block
         @click="onConfirm">
@@ -51,5 +51,7 @@
 </script>
 
 <style scoped>
-
+  .new-game {
+    max-width: 600px;
+  }
 </style>

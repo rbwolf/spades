@@ -49,6 +49,7 @@
     position: absolute;
     display: flex;
     align-items: center;
+    justify-content: center;
     z-index: 1;
     width: 100vw;
     height: 100vh;
@@ -58,7 +59,6 @@
 
   .content {
     z-index: 2;
-    width: 100%;
     border-radius: $borderRadius;
     border: $defaultBorder;
     background-color: $white;

@@ -12,11 +12,12 @@
         <label>
           Bid
         </label>
-        <blind-toggle
-            :blind="blind"
-            :disabled="!allowBidding"
-            @toggle="$emit('toggle-blind')"
-            class="px-2 mb-2 mb-md-0"/>
+        <icon-button
+          :icon-name="blind ? 'eye-off' : 'eye'"
+          :disabled="!allowBidding"
+          @click="$emit('toggle-blind')"
+          :class="{'unselected': !blind}"
+          class="px-2 mb-2 mb-md-0"/>
       </div>
       <div class="col col-12 col-md-8 px-2">
         <TextInput
@@ -47,11 +48,11 @@
 
 <script>
   import TextInput from './common/TextInput'
-  import BlindToggle from './BlindToggle'
+  import IconButton from './common/IconButton'
 
   export default {
     name: 'PlayerRound',
-    components: {BlindToggle, TextInput},
+    components: {IconButton, TextInput},
     props: {
       player: {
         type: Object,
@@ -87,6 +88,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 0;
+  }
+
+  .unselected {
+    opacity: 0.2;
   }
 
   label {
