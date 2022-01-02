@@ -1,5 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+  <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" viewBox="0 0 24 24" fill="none" stroke="currentColor"
        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
     <circle cx="12" cy="12" r="10"></circle>
     <line x1="12" y1="8" x2="12" y2="16"></line>
@@ -8,7 +8,13 @@
 </template>
 <script>
 export default {
-  name: 'CirclePlus'
+  name: 'CirclePlus',
+  props: {
+    size: {
+      type: Number,
+      default: 32
+    }
+  }
 }
 </script>
 

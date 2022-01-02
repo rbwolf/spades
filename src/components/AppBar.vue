@@ -16,7 +16,9 @@
           class="col d-flex align-items-center justify-content-end new-game"
           @click="onClick">
           <!-- TODO: Switch out a gear icon when downloading one isn't $25 -->
-          <circle-plus/>
+          <component
+            :is="actionIcon"
+            :size="32"/>
         </div>
       </div>
     </div>
@@ -27,10 +29,11 @@
   import Spade from './svg/Spade'
   import CirclePlus from './svg/CirclePlus'
   import { mapActions, mapMutations } from 'vuex'
+  import Gear from './svg/Gear'
 
   export default {
     name: 'App',
-    components: {CirclePlus, Spade},
+    components: {CirclePlus, Spade, Gear},
     methods: {
       ...mapMutations([
         'clearAllData',
@@ -43,6 +46,11 @@
       onClick () {
         this.openModal(this.$route.name === 'new' ? 'settings' : 'confirm-new-game')
       },
+    },
+    computed: {
+      actionIcon () {
+        return this.$route.name === 'new' ? 'gear' : 'circle-plus'
+      }
     }
   }
 </script>
