@@ -7,9 +7,9 @@
         :round-id="roundId"/>
       <div class="col d-flex flex-column align-items-center">
         <deco/>
-        <h6 class="round-number mt-2">
+        <h5 class="round-number mt-2">
           Round {{ roundNumber }}
-        </h6>
+        </h5>
         <deco class="deco-bottom"/>
       </div>
       <round-team-summary

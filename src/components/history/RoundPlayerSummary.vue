@@ -15,9 +15,9 @@
           {{ playerRound.bid }}
           <div class="position-relative">
             <eye-off
-                v-if="playerRound.blind"
-                :size="14"
-                class="blind-icon"/>
+              v-if="playerRound.blind"
+              :size="14"
+              class="blind-icon"/>
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@
   }
   .blind-icon {
     position: absolute;
-    opacity: 0.25;
+    opacity: 0.4;
     top: -6px;
     left: 8px;
   }

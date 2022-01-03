@@ -57,11 +57,11 @@
     outline: none;
     padding: 12px;
     box-sizing: border-box;
-    border: $defaultBorder;
     border-radius: $borderRadius;
     background-color: $white;
     &:disabled {
       background-color: darken($cardBackground, 5);
+      color: rgba($textColor, 0.5);
     }
   }
 </style>

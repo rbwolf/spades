@@ -56,7 +56,7 @@
   }
 
   .game {
-    max-width: 1000px;
+    max-width: 800px;
     padding-bottom: 100px;
   }
 </style>
