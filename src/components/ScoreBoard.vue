@@ -41,6 +41,6 @@
 
 <style lang="scss" scoped>
   .centerpiece {
-    transform: scale(2)
+    transform: scale(1.7);
   }
 </style>

@@ -18,7 +18,7 @@
           <!-- TODO: Switch out a gear icon when downloading one isn't $25 -->
           <icon-button
             :icon-name="actionIcon"
-            :size="32"/>
+            :size="28"/>
         </div>
       </div>
     </div>
