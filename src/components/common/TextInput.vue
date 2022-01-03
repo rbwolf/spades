@@ -48,6 +48,10 @@
 <style lang="scss" scoped>
   @import '../../global.scss';
 
+  input {
+    color: $lightText;
+  }
+
   .text-input {
     width: 100%;
     outline: none;
@@ -55,8 +59,9 @@
     box-sizing: border-box;
     border: $defaultBorder;
     border-radius: $borderRadius;
+    background-color: $white;
     &:disabled {
-      background-color: lightgrey;
+      background-color: darken($cardBackground, 5);
     }
   }
 </style>

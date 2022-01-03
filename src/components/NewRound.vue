@@ -110,6 +110,7 @@
   @import '../global.scss';
 
   .round {
+    background-color: $cardBackground;
     box-shadow: $defaultShadow;
     border-radius: $borderRadius;
     border: $defaultBorder;

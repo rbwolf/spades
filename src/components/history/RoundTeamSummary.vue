@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <h2 class="text-center fw-bold">
+      <h2 class="text-center fw-bold team-score">
         {{ teamScore }}
       </h2>
     </div>
@@ -57,6 +57,11 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '../../global';
+
+  .team-score {
+    font-family: $headerFont;
+  }
 
 </style>

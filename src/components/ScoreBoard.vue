@@ -1,25 +1,27 @@
 <template>
-  <div class="row">
-    <div
-      v-for="(team, i) in teams"
-      :key="team.id"
-      class="col text-center">
-      <h1>
-        <ICountUp :endVal="scores[i]"/>
-      </h1>
-      <h3>{{ team.name }}</h3>
-      <h6>
-        <ICountUp :endVal="bags[i]"/> bag{{ bags[i] !== 1 ? 's' : '' }}</h6>
-    </div>
+  <div class="row d-flex align-items-center">
+    <team-score
+      class="col"
+      :score="scores[0]"
+      :bags="bags[0]"
+      :team-name="teams[0].name"/>
+    <centerpiece
+      class="col centerpiece"/>
+    <team-score
+      class="col"
+      :score="scores[1]"
+      :bags="bags[1]"
+      :team-name="teams[1].name"/>
   </div>
 </template>
 
 <script>
-  import ICountUp from 'vue-countup-v2';
+  import Centerpiece from './svg/Centerpiece'
+  import TeamScore from './TeamScore'
 
   export default {
     name: 'ScoreBoard',
-    components: { ICountUp },
+    components: {TeamScore, Centerpiece },
     props: {
       teams: {
         type: Array,
@@ -36,3 +38,9 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .centerpiece {
+    transform: scale(2)
+  }
+</style>

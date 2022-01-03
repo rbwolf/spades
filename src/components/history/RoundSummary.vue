@@ -5,9 +5,13 @@
         class="col"
         :team-id="teamArray[0].id"
         :round-id="roundId"/>
-      <h6 class="col text-center">
-        - Round {{ roundNumber }} -
-      </h6>
+      <div class="col d-flex flex-column align-items-center">
+        <deco/>
+        <h6 class="round-number mt-2">
+          Round {{ roundNumber }}
+        </h6>
+        <deco class="deco-bottom"/>
+      </div>
       <round-team-summary
         class="col"
         :team-id="teamArray[1].id"
@@ -18,10 +22,11 @@
 
 <script>
   import RoundTeamSummary from './RoundTeamSummary'
+  import Deco from '../svg/Deco'
 
   export default {
     name: 'RoundSummary',
-    components: {RoundTeamSummary},
+    components: {Deco, RoundTeamSummary},
     props: {
       roundNumber: {
         type: Number,
@@ -47,5 +52,15 @@
     box-shadow: $defaultShadow;
     border-radius: $borderRadius;
     border: $defaultBorder;
+    background-color: $cardBackground;
+  }
+
+  .round-number {
+    font-family: $headerFont;
+    text-align: center;
+  }
+
+  .deco-bottom {
+    transform: rotate(180deg);
   }
 </style>

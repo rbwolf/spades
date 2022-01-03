@@ -58,9 +58,10 @@
   @import '../global.scss';
 
   .bar {
-    background-color: $white;
+    background-color: $cardBackground;
     box-shadow: $defaultShadow;
     padding: 8px 0;
+    border-bottom: $defaultBorder;
   }
 
   .title {
@@ -72,6 +73,7 @@
 
   .spade {
     margin-left: 8px;
+    fill: $accent;
   }
 
   .new-game {

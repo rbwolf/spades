@@ -2,15 +2,15 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h1>Who's playing?</h1>
+        <h2>Who's playing?</h2>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-2">
       <div
         v-for="(team, i) in teams"
         :key="i"
         class="col col-6">
-        <h2>Team {{ names[i] }}</h2>
+        <h3>Team {{ names[i] }}</h3>
         <text-input
           v-for="(_, j) in team"
           :key="j"
@@ -18,20 +18,22 @@
           v-model="teams[i][j]"/>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-2">
       <div class="col">
-        <h1>What are we playing to?</h1>
+        <h2>What are we playing to?</h2>
         <text-input
             type="number"
             v-model="pointsToWin"/>
       </div>
     </div>
-    <div class="row">
-      <action-button
-          class="mt-4"
+    <div class="row mt-4">
+      <div class="col">
+        <action-button
+          block
           @click="initGame">
-        Let's play!
-      </action-button>
+          Let's play!
+        </action-button>
+      </div>
     </div>
   </div>
 </template>

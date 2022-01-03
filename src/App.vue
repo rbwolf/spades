@@ -38,15 +38,21 @@
 
 <style lang="scss">
   @import "~bootstrap";
+  @import "global.scss";
 
   h1 {
-    font-weight: bold;
+    text-transform: uppercase;
+    font-family: $headerFont;
+  }
+
+  * {
+    color: $textColor;
   }
 
   body {
     font-family: 'Raleway', Helvetica, sans-serif;
     margin: 0;
-    background-color: $white;
+    background-color: $background;
   }
 
   .game {

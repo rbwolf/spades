@@ -61,7 +61,7 @@
     z-index: 2;
     border-radius: $borderRadius;
     border: $defaultBorder;
-    background-color: $white;
+    background-color: $background;
     &.padded {
       padding: 24px;
     }

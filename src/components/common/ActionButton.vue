@@ -36,7 +36,7 @@
     border-radius: 8px;
     padding: 12px;
     &:focus {
-      outline: 2px solid lightskyblue;
+      outline: 2px solid lighten($accent, 10);
     }
     &:active, &:disabled {
       opacity: 0.6;

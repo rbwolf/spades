@@ -103,7 +103,7 @@
     z-index: 1;
     position: sticky;
     bottom: 0;
-    background-color: $white;
+    background-color: $background;
     padding-top: 12px;
   }
 

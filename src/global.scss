@@ -1,8 +1,33 @@
 $white: #FEFEFE;
-$accent: #44A9AF;
-$borderRadius: 8px;
-$defaultBorder: 1px solid lightgrey;
+
+// Light theme
+$lightBackground: $white;
+$lightCardBackground: $white;
+$lightAccent: #44A9AF;
+$lightDefaultBorder: 1px solid lightgrey;
+$lightText: black;
+$lightHeaderFont: 'Raleway', Helvetica, sans-serif;
+$lightBodyFont: 'Raleway', Helvetica, sans-serif;
+
+// Dark theme
+$darkBackground: #10222C;
+$darkCardBackground: #152B37;
+$darkAccent: #BAA866;
+$darkDefaultBorder: 1px solid rgba($darkAccent, 0.3);
+$darkText: #FEFEFE;
+$darkHeaderFont: 'Limelight', Helvetica, serif;
+$darkBodyFont: 'Raleway', Helvetica, sans-serif;
+
+// Active theme
+$background: $darkBackground;
+$cardBackground: $darkCardBackground;
+$accent: $darkAccent;
+$textColor: $darkText;
+$headerFont: $darkHeaderFont;
+$bodyFont: $darkBodyFont;
+$defaultBorder: $darkDefaultBorder;
 $defaultShadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+$borderRadius: 8px;
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity 150ms;
