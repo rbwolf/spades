@@ -53,7 +53,7 @@
     z-index: 1;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(grey, 0.6);
+    background-color: rgba(black, 0.7);
     padding: 18px;
   }
 
