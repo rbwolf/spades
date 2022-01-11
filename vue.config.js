@@ -8,9 +8,5 @@ module.exports = {
     msTileColor: '#10222C',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
-
-    // configure the workbox plugin
-    workboxPluginMode: 'InjectManifest',
-    workboxOptions: {}
   }
 }
