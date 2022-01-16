@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1>
+    <h1 class="score">
       <ICountUp :endVal="score"/>
     </h1>
     <h3 class="team-name">{{ teamName }}</h3>
@@ -34,6 +34,10 @@
 </script>
 
 <style scoped>
+  .score {
+    font-size: 2.5em;
+  }
+
   .team-name {
     overflow: hidden;
     text-overflow: ellipsis;

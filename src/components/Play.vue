@@ -16,6 +16,7 @@
           :round-number="i + 1"
           :team-array="teamArray"/>
     </transition-group>
+    <scroll-to-top class="scroll-button"/>
   </div>
 </template>
 
@@ -24,10 +25,11 @@
   import ScoreBoard from './ScoreBoard'
   import RoundSummary from './history/RoundSummary'
   import { mapGetters, mapMutations, mapState } from 'vuex'
+  import ScrollToTop from './ScrollToTop'
 
   export default {
     name: 'Play',
-    components: {RoundSummary, ScoreBoard, NewRound},
+    components: {ScrollToTop, RoundSummary, ScoreBoard, NewRound},
     computed: {
       ...mapState([
         'teams',
@@ -79,5 +81,11 @@
 
   .history-move {
     transition: transform 1s;
+  }
+
+  .scroll-button {
+    position: fixed;
+    bottom: 36px;
+    right: 36px;
   }
 </style>

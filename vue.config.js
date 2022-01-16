@@ -8,5 +8,9 @@ module.exports = {
     msTileColor: '#10222C',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
+  },
+  // Allow access from phone over WAN
+  devServer: {
+    disableHostCheck: true
   }
 }
