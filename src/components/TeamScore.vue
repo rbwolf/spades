@@ -3,7 +3,7 @@
     <h1>
       <ICountUp :endVal="score"/>
     </h1>
-    <h3>{{ teamName }}</h3>
+    <h3 class="team-name">{{ teamName }}</h3>
     <h6>
       <ICountUp :endVal="bags"/> bag{{ bags !== 1 ? 's' : '' }}
     </h6>
@@ -34,5 +34,8 @@
 </script>
 
 <style scoped>
-
+  .team-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 </style>

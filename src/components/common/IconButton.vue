@@ -5,7 +5,8 @@
     <component
       :is="iconName"
       :class="{disabled}"
-      :size="size"/>
+      :size="size"
+      :color="color"/>
   </button>
 </template>
 
@@ -15,10 +16,12 @@
   import EyeOff from '../svg/EyeOff'
   import Gear from '../svg/Gear'
   import CirclePlus from '../svg/CirclePlus'
+  import Edit from '../svg/Edit'
+  import Check from '../svg/Check'
 
   export default {
     name: 'IconButton',
-    components: {Eye, EyeOff, X, Gear, CirclePlus},
+    components: {Edit, Eye, EyeOff, X, Gear, CirclePlus, Check},
     props: {
       iconName: {
         type: String,
@@ -27,6 +30,10 @@
       size: {
         type: Number,
         default: 24
+      },
+      color: {
+        type: String,
+        default: 'white'
       },
       disabled: {
         type: Boolean,

@@ -2,7 +2,7 @@
   <input
       class="text-input"
       :type="type"
-      :maxlength="10"
+      :maxlength="maxlength"
       :min="min"
       :max="max"
       :placeholder="placeholder"
@@ -33,6 +33,10 @@
       max: {
         type: Number,
         default: 13
+      },
+      maxlength: {
+        type: Number,
+        default: 20
       }
     },
     methods: {

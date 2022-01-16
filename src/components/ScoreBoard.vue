@@ -1,14 +1,14 @@
 <template>
-  <div class="row d-flex align-items-center">
+  <div class="row d-flex justify-content-center">
     <team-score
-      class="col"
+      class="col col-4"
       :score="scores[0]"
       :bags="bags[0]"
       :team-name="teams[0].name"/>
     <centerpiece
-      class="col centerpiece"/>
+      class="col col-2 centerpiece"/>
     <team-score
-      class="col"
+      class="col col-4 team-score"
       :score="scores[1]"
       :bags="bags[1]"
       :team-name="teams[1].name"/>
@@ -42,5 +42,11 @@
 <style lang="scss" scoped>
   .centerpiece {
     transform: scale(1.7);
+    align-self: center;
+  }
+
+  .team-score {
+    flex-grow: 0;
+    overflow: hidden;
   }
 </style>

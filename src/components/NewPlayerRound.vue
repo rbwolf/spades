@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="row align-items-center mt-2">
-      <div class="col col-12 col-md-4 d-flex">
+      <div class="col col-12 col-md-5 d-flex align-items-md-center">
         <label>
           Bid
         </label>
@@ -17,9 +17,10 @@
           :disabled="!allowBidding"
           @click="$emit('toggle-blind')"
           :class="{'unselected': !blind}"
-          class="px-2 mb-2 mb-md-0"/>
+          tabindex="-1"
+          class="blind-button px-2 mb-2 mb-md-0"/>
       </div>
-      <div class="col col-12 col-md-8 px-2">
+      <div class="col col-12 col-md-7 px-2">
         <TextInput
           :value="bid"
           @input="v => $emit('update-bid', Number(v))"
@@ -29,12 +30,12 @@
       </div>
     </div>
     <div class="row align-items-center mt-2">
-      <div class="col col-12 col-md-4">
+      <div class="col col-12 col-md-5">
         <label>
           Tricks
         </label>
       </div>
-      <div class="col col-12 col-md-8 px-2">
+      <div class="col col-12 col-md-7 px-2">
         <TextInput
           :value="tricks"
           @input="v => $emit('update-tricks', Number(v))"
@@ -87,6 +88,7 @@
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
     margin-bottom: 0;
   }
 
@@ -97,5 +99,9 @@
   label {
     margin-bottom: 0;
     text-align: center;
+  }
+
+  .blind-button {
+    flex-shrink: 0;
   }
 </style>

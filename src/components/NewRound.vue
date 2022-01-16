@@ -1,5 +1,10 @@
 <template>
   <div class="round py-3 px-4">
+    <div class="d-flex justify-content-center align-items-center mb-2">
+      <hr class="round-hr">
+      <h5 class="round-number">Round {{ rounds.length + 1 }}</h5>
+      <hr class="round-hr">
+    </div>
     <div class="row">
       <new-player-round
         class="col col-3 player-round"
@@ -12,7 +17,7 @@
         :tricks="tricks[player.id]"
         :blind="blind[player.id]"
         @update-bid="bid => updateBid(player.id, bid)"
-        @update-tricks="tricks => updateTricks(player.id, tricks)"
+        @update-tricks="t => updateTricks(player.id, t)"
         @toggle-blind="toggleBlind(player.id)"/>
     </div>
     <div class="row mt-3">
@@ -52,7 +57,8 @@
     },
     computed: {
       ...mapState([
-        'players'
+        'players',
+        'rounds'
       ]),
       buttonText () {
         return this.bidding ? 'Submit Bids' : 'End Round'
@@ -114,5 +120,22 @@
     box-shadow: $defaultShadow;
     border-radius: $borderRadius;
     border: $defaultBorder;
+  }
+
+  .round-number {
+    flex-grow: 1;
+    text-align: center;
+    font-family: $darkHeaderFont;
+    white-space: nowrap;
+    margin-bottom: 0;
+    padding: 0 18px;
+  }
+
+  .round-hr {
+    flex-shrink: 1;
+    color: $darkAccent;
+    width: 90%;
+    height: 1px;
+    opacity: 0.5;
   }
 </style>
