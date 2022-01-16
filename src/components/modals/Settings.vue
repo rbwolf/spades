@@ -54,7 +54,7 @@
           bagLimit: 'Bag Limit',
           bustPenalty: 'Bust Penalty',
           blindBonus: 'Blind Bonus',
-          nilBonus: 'Blind Bonus'
+          nilBonus: 'Nil Bonus'
         }
       }
     },
