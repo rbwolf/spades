@@ -17,6 +17,7 @@
     "short-uuid": "^4.2.0",
     "vue": "^2.6.11",
     "vue-countup-v2": "^4.0.0",
+    "vue-gtag": "^1.16.1",
     "vue-router": "^3.5.3",
     "vuex": "^3.6.0"
   },
