@@ -108,35 +108,36 @@ export default {
         playerRound.playerId === playerId &&
         playerRound.roundId === getters.currentRound.id)
     },
-    getPlayerRoundScore: (state) => playerRoundId => {
-      const {bid, tricks, blind} = state.playerRounds[playerRoundId]
-      const {matchedBidScore, surplusBidScore, blindBonus, nilBonus} = state.settings
+    getTeamRoundScore: (state, getters) => (teamId, roundId) => {
+      const { matchedBidScore, surplusBidScore, blindBonus, nilBonus } = state.settings
 
+      const playerIds = getters.getTeamPlayerIds(teamId)
+      const playerRounds = Object.values(state.playerRounds).filter(pr => pr.roundId === roundId && playerIds.includes(pr.playerId))
+      const totalBid = playerRounds.reduce((curr, pr) => curr + pr.bid, 0)
+      const totalTricks = playerRounds.reduce((curr, pr) => curr + pr.tricks, 0)
+
+      // Standard player-round score
       let score = 0
-
-      // Standard round score
-      if (tricks < bid) {
-        score = -(bid * matchedBidScore)
-      } else if (tricks > bid) {
-        score = (bid * matchedBidScore) + (tricks - bid) * surplusBidScore
+      if (totalTricks < totalBid) {
+        score -= totalBid * matchedBidScore
+      } else if (totalTricks > totalBid) {
+        score += (totalBid * matchedBidScore) + (totalTricks - totalBid) * surplusBidScore
       } else {
-        score = (tricks * matchedBidScore)
+        score += (totalTricks * matchedBidScore)
       }
 
-      // Apply bonuses + penalties
-      if (blind) {
-        score += tricks === bid ? blindBonus : -blindBonus
-      }
-      if (bid === 0) {
-        score += tricks === bid ? nilBonus : -nilBonus
-      }
+      // Calculate per-player blind/nil bonuses
+      score += playerRounds.reduce((curr, pr) => {
+        if (pr.blind) {
+          curr += (pr.tricks === pr.bid ? blindBonus : -blindBonus)
+        }
+        if (pr.bid === 0) {
+          curr += (pr.tricks === pr.bid ? nilBonus : -nilBonus)
+        }
+        return curr
+      }, 0)
 
       return score
-    },
-    getPlayerScore: (state, getters) => playerId => {
-      return getters.getPlayerRounds(playerId).reduce((score, playerRound) => {
-        return score + getters.getPlayerRoundScore(playerRound.id)
-      }, 0)
     },
     getPlayerRounds: state => playerId => {
       return Object.values(state.playerRounds).filter(playerRound => playerRound.playerId === playerId)
@@ -156,8 +157,7 @@ export default {
         .map(player => player.id)
     },
     getTeamScore: (state, getters) => teamId => {
-      const playerIds = getters.getTeamPlayerIds(teamId)
-      const totalScore = playerIds.map(getters.getPlayerScore).reduce((sum, curr) => sum + curr)
+      const totalScore = state.rounds.reduce((score, round) => score + getters.getTeamRoundScore(teamId, round.id), 0)
       const bags = getters.getTotalTeamBags(teamId)
       const bagPenalties = Math.floor(bags / state.settings.bagLimit)
       return totalScore - (bagPenalties * state.settings.bustPenalty)

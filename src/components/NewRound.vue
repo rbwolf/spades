@@ -7,6 +7,7 @@
     </div>
     <div class="row">
       <new-player-round
+        ref="new-player-round"
         class="col col-3 player-round"
         v-for="player in players"
         :key="player.id"
@@ -23,7 +24,8 @@
     <div class="row mt-3">
       <action-button
         @click="onClick"
-        class="col col-12">
+        class="col col-12"
+        ref="primary-action">
         {{ buttonText }}
       </action-button>
       <action-button
@@ -84,17 +86,36 @@
       },
       updateBid (playerId, bid) {
         this.bids[playerId] = bid
+        this.autoAdvance('bid-input')
+      },
+      updateTricks (playerId, tricks) {
+        this.tricks[playerId] = tricks
+        this.autoAdvance('tricks-input')
       },
       submitBids () {
         this.bidding = false
         this.counting = true
-      },
-      updateTricks (playerId, tricks) {
-        this.tricks[playerId] = tricks
+        this.selectFirstInput('tricks-input')
       },
       endRound () {
         this.submitRound({ bids: this.bids, tricks: this.tricks, blind: this.blind })
         this.initRound()
+        this.selectFirstInput('bid-input')
+      },
+      autoAdvance (inputClass) {
+        const inputs = Object.values(document.getElementsByClassName(inputClass))
+        const activeIndex = inputs.findIndex((el) => document.activeElement === el)
+        if (activeIndex < inputs.length - 1) {
+          inputs[activeIndex + 1].focus()
+        } else {
+          this.$refs['primary-action'].$el.focus()
+        }
+      },
+      selectFirstInput (inputClass) {
+        const firstInput = Object.values(document.getElementsByClassName(inputClass))[0]
+        this.$nextTick(() => {
+          firstInput.focus()
+        })
       },
       toggleBlind (playerId) {
         this.blind[playerId] = !this.blind[playerId]

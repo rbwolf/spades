@@ -26,7 +26,7 @@
           @input="v => $emit('update-bid', Number(v))"
           :disabled="!allowBidding"
           type="number"
-          ref="bid"/>
+          class="bid-input"/>
       </div>
     </div>
     <div class="row align-items-center mt-2">
@@ -41,7 +41,7 @@
           @input="v => $emit('update-tricks', Number(v))"
           :disabled="!allowCounting"
           type="number"
-          ref="tricks"/>
+          class="tricks-input"/>
       </div>
     </div>
   </div>
@@ -103,5 +103,9 @@
 
   .blind-button {
     flex-shrink: 0;
+  }
+
+  .bid-input {
+    /* No style; just used for auto-selecting next input */
   }
 </style>

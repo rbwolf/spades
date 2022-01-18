@@ -39,14 +39,14 @@
       ...mapGetters([
         'getTeamPlayerIds',
         'getPlayerRoundsByRoundId',
-        'getPlayerRoundScore'
+        'getTeamRoundScore'
       ]),
       playerRounds () {
         const playerIds = this.getTeamPlayerIds(this.teamId)
         return this.getPlayerRoundsByRoundId(this.roundId).filter(pr => playerIds.includes(pr.playerId))
       },
       teamScore () {
-        return this.playerRounds.reduce((score, pr) => score + this.getPlayerRoundScore(pr.id), 0)
+        return this.getTeamRoundScore(this.teamId, this.roundId)
       }
     },
     methods: {
