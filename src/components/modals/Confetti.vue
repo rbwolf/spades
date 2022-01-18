@@ -23,7 +23,8 @@ export default {
         { front: 'lightred' },
         { front: 'lightblue' },
         { front: 'pink' },
-        { front: '#44A9AF' }
+        { front: '#44A9AF' },
+        { front: '#BAA866' }
       ]
     },
     confettiCount: {

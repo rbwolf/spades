@@ -66,7 +66,7 @@ export default {
     }
   },
   actions: {
-    async submitRound ({ state, commit, dispatch }, { bids, tricks, blind }) {
+    async submitRound ({ state, getters, commit, dispatch }, { bids, tricks, blind }) {
       // Create new round
       const newRound = new Round()
       state.rounds = [...state.rounds, newRound]
@@ -76,6 +76,12 @@ export default {
         const playerRound = new PlayerRound(player.id, newRound.id, bids[player.id], tricks[player.id], blind[player.id])
         commit('updatePlayerRound', playerRound)
       })
+
+      // Determine if this round has led to a win
+      if (getters.winner) {
+        state.winnerTeamId = getters.winner.id
+      }
+
       dispatch('saveState')
     },
     async restart ({ commit, dispatch }) {
@@ -168,6 +174,25 @@ export default {
     },
     getTeamBags: (state, getters) => teamId => {
       return getters.getTotalTeamBags(teamId) % state.settings.bagLimit
+    },
+    winner: (state, getters) => {
+      const teams = Object.values(state.teams).map(team => ({ ...team, score: getters.getTeamScore(team.id) }))
+      const winners = teams.filter(t => t.score >= state.settings.pointsToWin)
+
+      // Only one has achieved necessary points
+      if (winners.length === 0) {
+        return null
+      } else if (winners.length === 1) {
+        return winners[0]
+      } else {
+        // If it's a tie, there is no winner
+        if (winners[0].score === winners[1].score) {
+          return null
+        // Otherwise the winner is the one with more points
+        } else {
+          return winners.reduce((winner, team) => team.score > winner.score ? team : winner, { score: 0 })
+        }
+      }
     }
   }
 }

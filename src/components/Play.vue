@@ -4,7 +4,14 @@
       :teams="teamArray"
       :scores="scores"
       :bags="bags"/>
-    <new-round class="mt-4"/>
+    <new-round
+      v-if="!winner"
+      class="mt-4"/>
+    <h1
+      v-else
+      class="px-3 mt-4 text-center">
+      {{ winner.name }} wins!
+    </h1>
     <transition-group
       name="history"
       class="d-flex flex-column-reverse">
@@ -34,11 +41,12 @@
       ...mapState([
         'teams',
         'rounds',
-        'loaded'
+        'loaded',
       ]),
       ...mapGetters([
         'getTeamScore',
-        'getTeamBags'
+        'getTeamBags',
+        'winner'
       ]),
       teamArray () {
         return Object.values(this.teams)
@@ -50,15 +58,23 @@
         return this.teamArray.map(team => this.getTeamBags(team.id))
       }
     },
+    mounted () {
+      this.checkWinner()
+    },
     watch: {
-      scores (scores) {
-        console.log(scores)
+      winner () {
+        this.checkWinner()
       }
     },
     methods: {
       ...mapMutations([
         'openModal'
-      ])
+      ]),
+      checkWinner () {
+        if (this.winner) {
+          this.openModal('game-over')
+        }
+      }
     }
   }
 </script>

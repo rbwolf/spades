@@ -6,12 +6,12 @@
     <div class="mt-4">
       <action-button
         block
-        @click="onConfirm">
+        @click="startNewGame">
         Ok
       </action-button>
       <action-button
         block
-        @click="onClose"
+        @click="closeModal"
         class="mt-1"
         variant="secondary">
         Cancel
@@ -21,28 +21,14 @@
 </template>
 
 <script>
-  import { mapActions, mapMutations } from 'vuex'
   import ActionButton from '../common/ActionButton'
+  import newGameMixin from '../../newGameMixin'
 
   export default {
     name: 'ConfirmNewGame',
     components: { ActionButton },
+    mixins: [newGameMixin],
     methods: {
-      ...mapMutations([
-        'clearAllData',
-        'closeModal'
-      ]),
-      ...mapActions([
-        'clearState'
-      ]),
-      async onConfirm () {
-        await this.clearState()
-        this.$nextTick(() => {
-          this.$router.push('new')
-          this.closeModal()
-          this.clearAllData()
-        })
-      },
       onClose () {
         this.closeModal()
       }
