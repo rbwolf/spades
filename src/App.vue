@@ -41,7 +41,6 @@
   @import "global.scss";
 
   h1 {
-    text-transform: uppercase;
     font-family: $headerFont;
   }
 

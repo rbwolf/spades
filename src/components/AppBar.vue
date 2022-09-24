@@ -69,6 +69,8 @@
     margin-bottom: 0;
     cursor: default;
     user-select: none;
+    font-family: 'Damion', Helvetica, serif;
+
   }
 
   .spade {
